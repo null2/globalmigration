@@ -1,4 +1,4 @@
 globalmigration
 ===============
 
-visualization of global migrstion flows
+visualization of global migration flows
