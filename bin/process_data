@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+var process = require('../lib/process_data.js');
+
+
+process.doit();
