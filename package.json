@@ -1,0 +1,10 @@
+{
+  "name": "globalmigration",
+  "version": "0.0.0",
+  "description": "globalmigration ===============",
+  "main": "index.html",
+  "author": "null2 GmbH Berlin",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": []
+}
