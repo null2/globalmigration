@@ -29,11 +29,11 @@ Zepto(function($){
   svg.append("circle")
       .attr("r", outerRadius);
 
-  d3.csv('data/data.csv', function(data) {
-    console.log(data);
-  });
+  // d3.csv('data/data.csv', function(data) {
+  //   console.log(data);
+  // });
 
-  d3.json("data/matrix.json", function(matrix) {
+  d3.json("data/matrix_1990.json", function(matrix) {
 
     // Compute the chord layout.
     layout.matrix(matrix);
