@@ -54,7 +54,7 @@ Zepto(function($){
     var groupPath = group.append("path")
         .attr("id", function(d, i) { return "group" + i; })
         .attr("d", arc)
-        .style("fill", function(d, i) { return '#ff00ff'; });
+        .style("fill", function(d, i) { return '#dd0000'; });
 
     // Add a text label.
     var groupText = group.append("text")
