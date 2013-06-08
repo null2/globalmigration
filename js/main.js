@@ -1,7 +1,7 @@
 Zepto(function($){
 
-  var width = 720,
-      height = 720,
+  var width = 960,
+      height = 960,
       outerRadius = Math.min(width, height) / 2 - 10,
       innerRadius = outerRadius - 24;
 
