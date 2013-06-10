@@ -68,7 +68,9 @@ svg {
   font: 10px sans-serif;
 }
 
-
+label.year {
+  padding-right: 1em;
+}
 
 
 

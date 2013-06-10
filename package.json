@@ -1,19 +1,38 @@
 {
   "name": "globalmigration",
-  "version": "0.0.1",
-  "description": "globalmigration",
-  "main": "index.html",
-  "author": "null2 GmbH Berlin",
-  "license": "MIT",
-  "readmeFilename": "README.md",
+  "description": "Visualization of global migration flows",
+  "version": "0.1.0",
+  "homepage": "https://github.com/null2/globalmigration",
+  "author": {
+    "name": "null2 GmbH Berlin",
+    "email": "info@null2.net"
+  },
   "repository": {
     "type": "git",
-    "url": "git@github.com:null2/globalmigration.git"
+    "url": "git://github.com/null2/globalmigration.git"
   },
-  "dependencies": {
+  "bugs": {
+    "url": "https://github.com/null2/globalmigration/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/null2/globalmigration/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "start": "http-server"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt": "~0.4.1",
     "http-server": "~0.5.3",
     "csv": "~0.3.2",
-    "lodash": "~1.2.1",
-    "async": "~0.2.9"
-  }
+    "lodash": "~1.2.1"
+  },
+  "keywords": []
 }

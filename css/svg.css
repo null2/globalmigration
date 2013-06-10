@@ -14,6 +14,9 @@ path.chord {
   stroke-width: .25px;
 }
 
+#circle:hover path {
+  -webkit-transition: opacity 0.4s;
+}
 #circle:hover path.fade {
-  display: none;
+  opacity: 0;
 }
