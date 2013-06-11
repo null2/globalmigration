@@ -44,10 +44,11 @@
 
     // Add a group per neighborhood.
     var group = svg.selectAll(".group")
-        .data(layout.groups);
-
-    group.enter().append("g");
-    group.attr("class", "group")
+      .data(layout.groups);
+    group.enter()
+      .append("g")
+      .attr("class", "group");
+    group
       .on("mouseover", function(d, i) {
         chord.classed("fade", function(p) {
           return p.source.index !== i && p.target.index !== i;
@@ -56,43 +57,55 @@
     group.exit().remove();
 
     // Add a mouseover title.
-    group.append("title").text(function(d, i) {
-      return countries[i];
-    });
+    var title = group.selectAll('title')
+      .data(function(d, i) { return [countries[i]]; });
+    title.enter()
+      .append('title');
+    title
+      .text(function(d) { return d; });
+    title.exit().remove();
 
     // Add the group arc.
-    var groupPath = group.append("path")
-        .attr("id", function(d, i) { return "group" + i; })
-        .attr("d", arc)
-        .style("fill", '#dd0000');
+    var groupPath = group.selectAll('.group-arc')
+      .data(function(d) { return [d]; });
+    groupPath.enter()
+      .append('path')
+      .attr("class", "group-arc")
+      .attr("id", function(d, i, k) { return "group" + k; })
+      .style("fill", '#dd0000');
+    groupPath
+      .attr("d", arc);
+    groupPath.exit().remove();
 
     // Add a text label.
-    var groupText = group.append("text")
-        .attr("x", 6)
-        .attr("dy", 15);
-
-    groupText.append("textPath")
-        .attr("xlink:href", function(d, i) { return "#group" + i; })
-        .text(function(d, i) { return countries[i]; });
+    var groupText = group.selectAll('text')
+      .data(function(d) { return [d]; });
+    groupText.enter()
+      .append("text")
+      .attr("x", 6)
+      .attr("dy", 15)
+      .append("textPath")
+        .attr("xlink:href", function(d, i, k) { return "#group" + k; })
+        .text(function(d, i, k) { return countries[k]; });
+    groupText.exit().remove();
 
     // Remove the labels that don't fit. :(
-    groupText.filter(function(d, i) { return groupPath[0][i].getTotalLength() / 2 - 25 < this.getComputedTextLength(); })
-        .remove();
+    // FIXME
+    groupText
+      .filter(function(d, i) { return groupPath[0][i].getTotalLength() / 2 - 25 < this.getComputedTextLength(); })
+      .remove();
 
     // Add the chords.
     var chord = svg.selectAll(".chord")
         .data(layout.chords);
-
-    chord.enter().append("path");
-    chord.attr("class", "chord")
-      .style("fill", '#ff0000')
-      .attr("d", path);
+    chord.enter()
+      .append("path")
+      .attr("class", "chord")
+      .style("fill", '#ff0000');
+    chord
+      .attr("d", path)
+      .append("title").text(function(d) { return countries[d.source.index]; });
     chord.exit().remove();
-
-    // Add an elaborate mouseover title for each chord.
-    chord.append("title").text(function(d) {
-      return countries[d.source.index];
-    });
   }
 
   d3.json(datafile, function(data) {
