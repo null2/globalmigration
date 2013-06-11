@@ -15,8 +15,15 @@ path.chord {
 }
 
 #circle:hover path {
-  -webkit-transition: opacity 0.4s;
+  -webkit-transition: opacity 0.8s;
+  -moz-transition: opacity 0.8s;
+  -o-transition: opacity 0.8s;
+  transition: opacity 0.8s;
 }
 #circle:hover path.fade {
   opacity: 0;
+}
+
+.group path {
+  cursor: pointer;
 }

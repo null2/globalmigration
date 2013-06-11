@@ -18,6 +18,7 @@
       .innerRadius(innerRadius)
       .outerRadius(outerRadius);
 
+  // var layout = d3.layout.directedChord()
   var layout = d3.layout.chord()
       .padding(0.004)
       .sortSubgroups(d3.descending)
@@ -38,7 +39,10 @@
   svg.append("circle")
       .attr("r", outerRadius);
 
+
   function draw(countries, matrix) {
+    var colors = d3.scale.category10().domain(countries);
+
     // Compute the chord layout.
     layout.matrix(matrix);
 
@@ -71,10 +75,10 @@
     groupPath.enter()
       .append('path')
       .attr("class", "group-arc")
-      .attr("id", function(d, i, k) { return "group" + k; })
-      .style("fill", '#dd0000');
+      .attr("id", function(d, i, k) { return "group" + k; });
     groupPath
-      .attr("d", arc);
+      .attr("d", arc)
+      .style("fill", function(d, i, k) { return colors(k); });
     groupPath.exit().remove();
 
     // Add a text label.
@@ -86,12 +90,12 @@
       .attr("dy", 15)
       .append("textPath")
         .attr("xlink:href", function(d, i, k) { return "#group" + k; })
-        .text(function(d, i, k) { return countries[k]; });
+        .text(function(d) { return countries[d.index]; });
     groupText.exit().remove();
 
     // Remove the labels that don't fit. :(
     groupText
-      .filter(function(d, i, k) {
+      .filter(function(d) {
         return d3.select('#group' + d.index).node().getTotalLength() / 2 - 25 < this.getComputedTextLength();
       })
       .remove();
@@ -101,10 +105,14 @@
         .data(layout.chords);
     chord.enter()
       .append("path")
-      .attr("class", "chord")
-      .style("fill", '#ff0000');
+      .attr("class", "chord");
     chord
       .attr("d", path)
+      .style("fill", function(d, i, k) {
+        return d3.rgb(colors(d.source.index))
+          .brighter( 1 - i / countries.length)
+          .toString();
+      })
       .append("title").text(function(d) { return countries[d.source.index]; });
     chord.exit().remove();
   }
