@@ -90,9 +90,10 @@
     groupText.exit().remove();
 
     // Remove the labels that don't fit. :(
-    // FIXME
     groupText
-      .filter(function(d, i) { return groupPath[0][i].getTotalLength() / 2 - 25 < this.getComputedTextLength(); })
+      .filter(function(d, i, k) {
+        return d3.select('#group' + d.index).node().getTotalLength() / 2 - 25 < this.getComputedTextLength();
+      })
       .remove();
 
     // Add the chords.
