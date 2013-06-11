@@ -12,20 +12,21 @@
   var width = 960,
       height = 960,
       outerRadius = Math.min(width, height) / 2 - 10,
-      innerRadius = outerRadius - 24;
+      innerRadius = outerRadius - 24,
+      sourcePadding = 30;
 
   var arc = d3.svg.arc()
       .innerRadius(innerRadius)
       .outerRadius(outerRadius);
 
-  // var layout = d3.layout.directedChord()
   var layout = d3.layout.chord()
       .padding(0.004)
       .sortSubgroups(d3.descending)
       .sortChords(d3.ascending);
 
-  var path = d3.svg.chord()
-      .radius(innerRadius);
+  var chordGenerator = d3.svg.chord()
+      .radius(innerRadius)
+      .padding(sourcePadding);
 
   var form = d3.select("body").append("form");
 
@@ -107,7 +108,7 @@
       .append("path")
       .attr("class", "chord");
     chord
-      .attr("d", path)
+      .attr("d", chordGenerator)
       .style("fill", function(d, i, k) {
         return d3.rgb(colors(d.source.index))
           .brighter( 1 - i / countries.length)
