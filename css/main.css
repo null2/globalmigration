@@ -64,18 +64,22 @@ textarea {
    ========================================================================== */
 
 
+body {
+  text-align: center;
+}
 svg {
   font: 10px sans-serif;
 }
-
-label.year {
-  padding-right: 1em;
+.year label {
+  padding: 1ex 1em;
+  cursor: pointer;
 }
-
-
-
-
-
+.year input {
+  display: none;
+}
+.year input:checked + label {
+  font-weight: bold;
+}
 
 
 

@@ -8,6 +8,10 @@
 
 (function() {
   var datafile = 'migrations.json';
+  var scope = 'regions';
+  // var scope = 'countries';
+
+  var animationDuration = 1000;
 
   var width = 960,
       height = 960,
@@ -20,7 +24,7 @@
       .outerRadius(outerRadius);
 
   var layout = d3.layout.chord()
-      .padding(0.004)
+      .padding(0.01)
       .sortSubgroups(d3.descending)
       .sortChords(d3.ascending);
 
@@ -61,7 +65,7 @@
       });
     group.exit().remove();
 
-    // Add a mouseover title.
+    // Add a mouseover title to arcs.
     var title = group.selectAll('title')
       .data(function(d, i) { return [countries[i]]; });
     title.enter()
@@ -78,8 +82,18 @@
       .attr("class", "group-arc")
       .attr("id", function(d, i, k) { return "group" + k; });
     groupPath
+      .style("fill", function(d, i, k) { return colors(k); })
+      .transition()
+      .duration(animationDuration)
       .attr("d", arc)
-      .style("fill", function(d, i, k) { return colors(k); });
+      .each('end', function() {
+        // Remove the labels that don't fit. :(
+        groupText
+          .filter(function(d) {
+            return d3.select('#group' + d.index).node().getTotalLength() / 2 - 25 < this.getComputedTextLength();
+          })
+          .remove();
+      });
     groupPath.exit().remove();
 
     // Add a text label.
@@ -94,13 +108,6 @@
         .text(function(d) { return countries[d.index]; });
     groupText.exit().remove();
 
-    // Remove the labels that don't fit. :(
-    groupText
-      .filter(function(d) {
-        return d3.select('#group' + d.index).node().getTotalLength() / 2 - 25 < this.getComputedTextLength();
-      })
-      .remove();
-
     // Add the chords.
     var chord = svg.selectAll(".chord")
         .data(layout.chords);
@@ -108,36 +115,53 @@
       .append("path")
       .attr("class", "chord");
     chord
-      .attr("d", chordGenerator)
       .style("fill", function(d, i, k) {
-        return d3.rgb(colors(d.source.index))
-          .brighter( 1 - i / countries.length)
-          .toString();
+        var c = colors(d.source.index);
+
+        var hsl = d3.hsl(c);
+
+        var l = d3.scale.linear().domain([0, countries.length]).range([Math.min(hsl.l - 0.2, 0.3), Math.max(hsl.l + 0.2, 0.5)]);
+
+        return d3.hsl(hsl.h, hsl.s, l(d.target.index)).toString();
       })
-      .append("title").text(function(d) { return countries[d.source.index]; });
+      .transition()
+      .duration(animationDuration)
+      .attr("d", chordGenerator);
     chord.exit().remove();
+
+    // Add a mouseover title to chords.
+    var chordTitle = chord.selectAll('title')
+      .data(function(d) { return [d]; });
+    chordTitle.enter().append('title');
+    chordTitle
+      .text(function(d) { return countries[d.source.index]; });
+    chordTitle.exit().remove();
   }
 
   d3.json(datafile, function(data) {
-    var scope = 'regions';
     draw(data[scope], data.years[1990][scope]);
 
-    form.selectAll('label.year')
-      .data(Object.keys(data.years))
-      .enter()
-      .append('label')
-      .classed('year', true)
-      .html(function(d) { return d + ' '; })
-        .append('input')
-        .attr({
-          name: 'year',
-          type: 'radio',
-          value: function(d) { return d; },
-          checked: function(d, i) { return i === 0 || null; }
-        })
-        .on('click', function(d) {
-          draw(data[scope], data.years[d][scope]);
-        });
+    var years = form.selectAll('.year')
+      .data(Object.keys(data.years));
+    var span = years.enter().append('span')
+      .classed('year', true);
+
+    span.append('input')
+      .attr({
+        name: 'year',
+        type: 'radio',
+        id: function(d) { return 'year-' + d; },
+        value: function(d) { return d; },
+        checked: function(d, i) { return i === 0 || null; }
+      })
+      .on('click', function(d) {
+        draw(data[scope], data.years[d][scope]);
+      });
+
+    span.append('label')
+      .attr('for', function(d) { return 'year-' + d; })
+      .text(function(d) { return d; });
+
   });
 
 })();

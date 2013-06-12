@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         options: {
           jshintrc: 'src/.jshintrc'
         },
-        src: ['src/**/*.js']
+        src: ['src/*.js']
       }
     },
     clean: ['migrations.json']
