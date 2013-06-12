@@ -46,7 +46,8 @@
 
 
   var previous = {
-    groups: []
+    groups: [],
+    chords: {}
   };
   function draw(countries, matrix) {
     var colors = d3.scale.category10().domain(countries);
@@ -146,7 +147,16 @@
       })
       .transition()
       .duration(animationDuration)
-      .attr("d", chordGenerator);
+      .attr("d", chordGenerator)
+      .each('end', function(d, i) {
+        previous.chords[d.id] = d;
+      })
+      .attrTween("d", function(b, i, a) {
+        var i = d3.interpolate(previous.chords[b.id] || {}, b);
+        return function (t) {
+          return chordGenerator(i(t));
+        };
+      });
     chord.exit().remove();
 
     // Add a mouseover title to chords.
