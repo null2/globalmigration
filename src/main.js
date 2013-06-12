@@ -8,8 +8,8 @@
 
 (function() {
   var datafile = 'migrations.json';
-  var scope = 'regions';
-  // var scope = 'countries';
+  // var scope = 'regions';
+  var scope = 'countries';
 
   var animationDuration = 1000;
 
@@ -115,10 +115,8 @@
       .append("path")
       .attr("class", "chord");
     chord
-      .style("fill", function(d, i, k) {
-        var c = colors(d.source.index);
-
-        var hsl = d3.hsl(c);
+      .style("fill", function(d) {
+        var hsl = d3.hsl(colors(d.source.index));
 
         var l = d3.scale.linear().domain([0, countries.length]).range([Math.min(hsl.l - 0.2, 0.3), Math.max(hsl.l + 0.2, 0.5)]);
 

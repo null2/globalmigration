@@ -124,23 +124,25 @@ d3.layout.chord = function() {
             target = subgroups['target' + '-' + j + "-" + i];
         if (source.value || target.value) {
           if (i === j) {
-            var target = subgroups['target' + '-' + i + "-" + j];
-            chords.push({
-              source: {
-                index: source.index,
-                subindex: source.subindex,
-                startAngle: source.startAngle,
-                endAngle: source.startAngle + source.dAngle,
-                value: source.sourceV
-              },
-              target: {
-                index: target.index,
-                subindex: target.subindex,
-                startAngle: target.startAngle,
-                endAngle: target.startAngle + target.dAngle,
-                value: target.sourceV
-              }
-            });
+            if (source.dAngle) {
+              var target = subgroups['target' + '-' + i + "-" + j];
+              chords.push({
+                source: {
+                  index: source.index,
+                  subindex: source.subindex,
+                  startAngle: source.startAngle,
+                  endAngle: source.startAngle + source.dAngle,
+                  value: source.sourceV
+                },
+                target: {
+                  index: target.index,
+                  subindex: target.subindex,
+                  startAngle: target.startAngle,
+                  endAngle: target.startAngle + target.dAngle,
+                  value: target.sourceV
+                }
+              });
+            }
           } else {
             chords.push({
               source: {
