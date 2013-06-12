@@ -122,63 +122,62 @@ d3.layout.chord = function() {
       j = i - 1; while (++j < n) {
         var source = subgroups['source' + '-' + i + "-" + j],
             target = subgroups['target' + '-' + j + "-" + i];
-        if (source.value || target.value) {
-          if (i === j) {
-            if (source.dAngle) {
-              var target = subgroups['target' + '-' + i + "-" + j];
-              chords.push({
-                source: {
-                  index: source.index,
-                  subindex: source.subindex,
-                  startAngle: source.startAngle,
-                  endAngle: source.startAngle + source.dAngle,
-                  value: source.sourceV
-                },
-                target: {
-                  index: target.index,
-                  subindex: target.subindex,
-                  startAngle: target.startAngle,
-                  endAngle: target.startAngle + target.dAngle,
-                  value: target.sourceV
-                }
-              });
+        if (i === j) {
+          var target = subgroups['target' + '-' + i + "-" + j];
+          chords.push({
+            id: 'source-' + i + "-" + j,
+            source: {
+              index: source.index,
+              subindex: source.subindex,
+              startAngle: source.startAngle,
+              endAngle: source.startAngle + source.dAngle,
+              value: source.value
+            },
+            target: {
+              index: target.index,
+              subindex: target.subindex,
+              startAngle: target.startAngle,
+              endAngle: target.startAngle + target.dAngle,
+              value: target.value
             }
-          } else {
-            chords.push({
-              source: {
-                index: source.index,
-                subindex: source.subindex,
-                startAngle: source.startAngle,
-                endAngle: source.startAngle + source.dAngle,
-                value: source.sourceV
-              },
-              target: {
-                index: target.index,
-                subindex: target.subindex,
-                startAngle: target.startAngle,
-                endAngle: target.startAngle + target.dAngle,
-                value: target.sourceV
-              }
-            });
-            var source = subgroups['source' + '-' + j + "-" + i],
-                target = subgroups['target' + '-' + i + "-" + j];
-            chords.push({
-              source: {
-                index: source.index,
-                subindex: source.subindex,
-                startAngle: source.startAngle,
-                endAngle: source.startAngle + source.dAngle,
-                value: source.sourceV
-              },
-              target: {
-                index: target.index,
-                subindex: target.subindex,
-                startAngle: target.startAngle,
-                endAngle: target.startAngle + target.dAngle,
-                value: target.sourceV
-              }
-            });
-          }
+          });
+        } else {
+          chords.push({
+            id: 'source-' + i + "-" + j,
+            source: {
+              index: source.index,
+              subindex: source.subindex,
+              startAngle: source.startAngle,
+              endAngle: source.startAngle + source.dAngle,
+              value: source.value
+            },
+            target: {
+              index: target.index,
+              subindex: target.subindex,
+              startAngle: target.startAngle,
+              endAngle: target.startAngle + target.dAngle,
+              value: target.value
+            }
+          });
+          var source = subgroups['source' + '-' + j + "-" + i],
+              target = subgroups['target' + '-' + i + "-" + j];
+          chords.push({
+            id: 'target-' + i + "-" + j,
+            source: {
+              index: source.index,
+              subindex: source.subindex,
+              startAngle: source.startAngle,
+              endAngle: source.startAngle + source.dAngle,
+              value: source.value
+            },
+            target: {
+              index: target.index,
+              subindex: target.subindex,
+              startAngle: target.startAngle,
+              endAngle: target.startAngle + target.dAngle,
+              value: target.value
+            }
+          });
         }
       }
     }
@@ -188,9 +187,7 @@ d3.layout.chord = function() {
 
   function resort() {
     chords.sort(function(a, b) {
-      return sortChords(
-          a.source.value,
-          b.source.value);
+      return sortChords(a.source.value, b.source.value);
     });
   }
 

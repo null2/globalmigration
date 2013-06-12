@@ -9,9 +9,21 @@
   fill-opacity: .5;
 }
 
+/*
 path.chord {
   stroke: #000;
   stroke-width: .25px;
+}
+*/
+
+.group-arc + text {
+  -webkit-transition: opacity 0.4s;
+  -moz-transition: opacity 0.4s;
+  -o-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+}
+.group-arc.animate + text {
+  opacity: 0;
 }
 
 #circle:hover path {

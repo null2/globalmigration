@@ -8,8 +8,8 @@
 
 (function() {
   var datafile = 'migrations.json';
-  // var scope = 'regions';
-  var scope = 'countries';
+  var scope = 'regions';
+  // var scope = 'countries';
 
   var animationDuration = 1000;
 
@@ -26,7 +26,7 @@
   var layout = d3.layout.chord()
       .padding(0.01)
       .sortSubgroups(d3.descending)
-      .sortChords(d3.ascending);
+      .sortChords(d3.descending);
 
   var chordGenerator = d3.svg.chord()
       .radius(innerRadius)
@@ -45,6 +45,9 @@
       .attr("r", outerRadius);
 
 
+  var previous = {
+    groups: []
+  };
   function draw(countries, matrix) {
     var colors = d3.scale.category10().domain(countries);
 
@@ -74,6 +77,27 @@
       .text(function(d) { return d; });
     title.exit().remove();
 
+    function addGroupText() {
+      // Add a text label.
+      var groupText = group.selectAll('text')
+        .data(function(d) { return [d]; });
+      groupText.enter()
+        .append("text")
+        .attr("x", 6)
+        .attr("dy", 15)
+        .append("textPath")
+          .attr("xlink:href", function(d, i, k) { return "#group" + k; })
+          .text(function(d) { return countries[d.index]; });
+      groupText.exit().remove();
+
+      // Remove the labels that don't fit. :(
+      groupText
+        .filter(function(d) {
+          return d3.select('#group' + d.index).node().getTotalLength() / 2 - 25 < this.getComputedTextLength();
+        })
+        .remove();
+    }
+
     // Add the group arc.
     var groupPath = group.selectAll('.group-arc')
       .data(function(d) { return [d]; });
@@ -83,34 +107,32 @@
       .attr("id", function(d, i, k) { return "group" + k; });
     groupPath
       .style("fill", function(d, i, k) { return colors(k); })
+      .attr({
+        startAngle: function(d) { return d.startAngle; },
+        endAngle: function(d) { return d.endAngle; }
+      })
       .transition()
       .duration(animationDuration)
       .attr("d", arc)
-      .each('end', function() {
-        // Remove the labels that don't fit. :(
-        groupText
-          .filter(function(d) {
-            return d3.select('#group' + d.index).node().getTotalLength() / 2 - 25 < this.getComputedTextLength();
-          })
-          .remove();
+      .each('start', function(d) {
+        groupPath.classed('animate', true);
+      })
+      .each('end', function(d, i) {
+        previous.groups[d.index] = d;
+        addGroupText();
+        groupPath.classed('animate', false);
+      })
+      .attrTween("d", function(b, i, a) {
+        var i = d3.interpolate(previous.groups[b.index] || {}, b);
+        return function (t) {
+          return arc(i(t));
+        };
       });
     groupPath.exit().remove();
 
-    // Add a text label.
-    var groupText = group.selectAll('text')
-      .data(function(d) { return [d]; });
-    groupText.enter()
-      .append("text")
-      .attr("x", 6)
-      .attr("dy", 15)
-      .append("textPath")
-        .attr("xlink:href", function(d, i, k) { return "#group" + k; })
-        .text(function(d) { return countries[d.index]; });
-    groupText.exit().remove();
-
     // Add the chords.
     var chord = svg.selectAll(".chord")
-        .data(layout.chords);
+        .data(layout.chords, function(d) { return d.id; });
     chord.enter()
       .append("path")
       .attr("class", "chord");
