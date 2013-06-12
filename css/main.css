@@ -77,6 +77,7 @@ svg {
 .year input {
   display: none;
 }
+.year input[checked] + label,
 .year input:checked + label {
   font-weight: bold;
 }

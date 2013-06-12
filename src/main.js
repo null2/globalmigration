@@ -171,9 +171,11 @@
   d3.json(datafile, function(data) {
     draw(data[scope], data.years[1990][scope]);
 
-    var years = form.selectAll('.year')
-      .data(Object.keys(data.years));
-    var span = years.enter().append('span')
+    var years = Object.keys(data.years);
+
+    var year = form.selectAll('.year')
+      .data(years);
+    var span = year.enter().append('span')
       .classed('year', true);
 
     span.append('input')
@@ -192,6 +194,17 @@
       .attr('for', function(d) { return 'year-' + d; })
       .text(function(d) { return d; });
 
+    d3.select(document.body).on('keypress', function(e) {
+      var idx = d3.event.keyCode - 49;
+      var y = years[idx];
+      if (y) {
+        year.selectAll('input').attr('checked', function(d) {
+          console.log(d, y);
+          return d == y ? 'checked' : null;
+        });
+        draw(data[scope], data.years[y][scope]);
+      }
+    });
   });
 
 })();
