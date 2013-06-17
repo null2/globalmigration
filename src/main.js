@@ -195,11 +195,10 @@
       .text(function(d) { return d; });
 
     d3.select(document.body).on('keypress', function(e) {
-      var idx = d3.event.keyCode - 49;
+      var idx = d3.event.which - 49;
       var y = years[idx];
       if (y) {
         year.selectAll('input').attr('checked', function(d) {
-          console.log(d, y);
           return d == y ? 'checked' : null;
         });
         draw(data[scope], data.years[y][scope]);
