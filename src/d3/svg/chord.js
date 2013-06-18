@@ -28,7 +28,8 @@ d3.svg.chord = function() {
   var source = d3_source,
       target = d3_target,
       radius = d3_svg_chordRadius,
-      padding = d3_svg_chordPadding,
+      sourcePadding = d3_svg_chordSourcePadding,
+      targetPadding = d3_svg_chordTargetPadding,
       startAngle = d3_svg_arcStartAngle,
       endAngle = d3_svg_arcEndAngle;
 
@@ -61,7 +62,10 @@ d3.svg.chord = function() {
         a1 = endAngle.call(self, subgroup, i) + d3_svg_arcOffset;
     
     if (target) {
-      var d = padding.call(self, subgroup, i) || 0;
+      var d = targetPadding.call(self, subgroup, i) || 0;
+      r = r - d;
+    } else {
+      var d = sourcePadding.call(self, subgroup, i) || 0;
       r = r - d;
     }
 
@@ -93,9 +97,14 @@ d3.svg.chord = function() {
   };
 
   // null2
-  chord.padding = function(v) {
-    if (!arguments.length) return padding;
-    padding = d3_functor(v);
+  chord.sourcePadding = function(v) {
+    if (!arguments.length) return sourcePadding;
+    sourcePadding = d3_functor(v);
+    return chord;
+  };
+  chord.targetPadding = function(v) {
+    if (!arguments.length) return targetPadding;
+    targetPadding = d3_functor(v);
     return chord;
   };
 
@@ -129,6 +138,9 @@ d3.svg.chord = function() {
 function d3_svg_chordRadius(d) {
   return d.radius;
 }
-function d3_svg_chordPadding(d) {
-  return d.padding;
+function d3_svg_chordTargetPadding(d) {
+  return d.targetPadding;
+}
+function d3_svg_chordSourcePadding(d) {
+  return d.sourcePadding;
 }

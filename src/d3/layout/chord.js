@@ -11,8 +11,10 @@ d3.layout.chord = function() {
       chords,
       groups,
       matrix,
+      indices,
       n,
       padding = 0,
+      threshold = 1000,
       sortGroups,
       sortSubgroups,
       sortChords;
@@ -34,8 +36,8 @@ d3.layout.chord = function() {
     // Compute the sum.
     k = 0, i = -1; while (++i < n) {
       x = 0, j = -1; while (++j < n) {
-        x += matrix[i][j];
-        x += matrix[j][i];
+        x += matrix[indices[i]][indices[j]];
+        x += matrix[indices[j]][indices[i]];
       }
       groupSums.push(x);
       subgroupIndex.push({source: d3.range(n), target: d3.range(n)});
@@ -53,10 +55,10 @@ d3.layout.chord = function() {
     if (sortSubgroups) {
       subgroupIndex.forEach(function(d, i) {
         d.source.sort(function(a, b) {
-          return sortSubgroups(matrix[i][a], matrix[i][b]);
+          return sortSubgroups(matrix[indices[i]][indices[a]], matrix[indices[i]][indices[b]]);
         });
         d.target.sort(function(a, b) {
-          return sortSubgroups(matrix[a][i], matrix[b][i]);
+          return sortSubgroups(matrix[indices[a]][indices[i]], matrix[indices[b]][indices[i]]);
         });
       });
     }
@@ -79,11 +81,12 @@ d3.layout.chord = function() {
       // sources
       x0 = x, j = -1; while (++j < n) {
         var dj = subgroupIndex[di].source[j],
-            v = matrix[di][dj],
+            v = matrix[indices[di]][indices[dj]],
             a0 = x,
             d = v * k;
         x += d;
         subgroups['source' + '-' + di + "-" + dj] = {
+          originalIndex: indices[di],
           index: di,
           subindex: dj,
           startAngle: a0,
@@ -95,11 +98,12 @@ d3.layout.chord = function() {
       // targets
       x0 = x, j = -1; while (++j < n) {
         var dj = subgroupIndex[di].target[j],
-            v = matrix[dj][di],
+            v = matrix[indices[dj]][indices[di]],
             a0 = x,
             d = v * k;
         x += d;
         subgroups['target' + '-' + di + "-" + dj] = {
+          originalIndex: indices[dj],
           index: di,
           subindex: dj,
           startAngle: a0,
@@ -109,9 +113,11 @@ d3.layout.chord = function() {
       }
       
       groups[di] = {
+        id: indices[di],
         index: di,
         startAngle: lastX0,
         endAngle: x,
+        angle: lastX0 + (x - lastX0) / 2,
         value: (x - lastX0) / k
       };
       x += padding;
@@ -123,61 +129,73 @@ d3.layout.chord = function() {
         var source = subgroups['source' + '-' + i + "-" + j],
             target = subgroups['target' + '-' + j + "-" + i];
         if (i === j) {
-          var target = subgroups['target' + '-' + i + "-" + j];
-          chords.push({
-            id: 'source-' + i + "-" + j,
-            source: {
-              index: source.index,
-              subindex: source.subindex,
-              startAngle: source.startAngle,
-              endAngle: source.startAngle + source.dAngle,
-              value: source.value
-            },
-            target: {
-              index: target.index,
-              subindex: target.subindex,
-              startAngle: target.startAngle,
-              endAngle: target.startAngle + target.dAngle,
-              value: target.value
-            }
-          });
+          if (source.value > threshold) {
+            var target = subgroups['target' + '-' + i + "-" + j];
+            chords.push({
+              id: 'source-' + indices[i] + "-" + indices[j],
+              source: {
+                id: indices[source.index],
+                index: source.index,
+                subindex: source.subindex,
+                startAngle: source.startAngle,
+                endAngle: source.startAngle + source.dAngle,
+                value: source.value
+              },
+              target: {
+                id: indices[target.index],
+                index: target.index,
+                subindex: target.subindex,
+                startAngle: target.startAngle,
+                endAngle: target.startAngle + target.dAngle,
+                value: target.value
+              }
+            });
+          }
         } else {
-          chords.push({
-            id: 'source-' + i + "-" + j,
-            source: {
-              index: source.index,
-              subindex: source.subindex,
-              startAngle: source.startAngle,
-              endAngle: source.startAngle + source.dAngle,
-              value: source.value
-            },
-            target: {
-              index: target.index,
-              subindex: target.subindex,
-              startAngle: target.startAngle,
-              endAngle: target.startAngle + target.dAngle,
-              value: target.value
-            }
-          });
+          if (source.value > threshold) {
+            chords.push({
+              id: 'source-' + indices[i] + "-" + indices[j],
+              source: {
+                id: indices[source.index],
+                index: source.index,
+                subindex: source.subindex,
+                startAngle: source.startAngle,
+                endAngle: source.startAngle + source.dAngle,
+                value: source.value
+              },
+              target: {
+                id: indices[target.index],
+                index: target.index,
+                subindex: target.subindex,
+                startAngle: target.startAngle,
+                endAngle: target.startAngle + target.dAngle,
+                value: target.value
+              }
+            });
+          }
           var source = subgroups['source' + '-' + j + "-" + i],
               target = subgroups['target' + '-' + i + "-" + j];
-          chords.push({
-            id: 'target-' + i + "-" + j,
-            source: {
-              index: source.index,
-              subindex: source.subindex,
-              startAngle: source.startAngle,
-              endAngle: source.startAngle + source.dAngle,
-              value: source.value
-            },
-            target: {
-              index: target.index,
-              subindex: target.subindex,
-              startAngle: target.startAngle,
-              endAngle: target.startAngle + target.dAngle,
-              value: target.value
-            }
-          });
+          if (source.value > threshold) {
+            chords.push({
+              id: 'target-' + indices[i] + "-" + indices[j],
+              source: {
+                id: indices[source.index],
+                index: source.index,
+                subindex: source.subindex,
+                startAngle: source.startAngle,
+                endAngle: source.startAngle + source.dAngle,
+                value: source.value
+              },
+              target: {
+                id: indices[target.index],
+                index: target.index,
+                subindex: target.subindex,
+                startAngle: target.startAngle,
+                endAngle: target.startAngle + target.dAngle,
+                value: target.value
+              }
+            });
+          }
         }
       }
     }
@@ -194,6 +212,14 @@ d3.layout.chord = function() {
   chord.matrix = function(x) {
     if (!arguments.length) return matrix;
     n = (matrix = x) && matrix.length;
+    indices = d3.range(n);
+    chords = groups = null;
+    return chord;
+  };
+
+  chord.indices = function(x) {
+    if (!arguments.length) return indices;
+    n = (indices = x) && indices.length;
     chords = groups = null;
     return chord;
   };
