@@ -9,23 +9,40 @@
 (function() {
   var datafile = 'migrations.json';
 
-  var animationDuration = 3000;
-
+  // geometry
   var width = 960,
       height = 960,
       outerRadius = Math.min(width, height) / 2 - 100,
       innerRadius = outerRadius - 24,
+      arcPadding = 0.01,
       sourcePadding = 3,
       targetPadding = 20,
       labelPadding = 10;
+
+  // animation
+  var animationDuration = 1000;
+  var aLittleBit = Math.PI / 100000;
+  var initialAngle = { 
+    arc: {
+      startAngle: 0, endAngle: aLittleBit
+    },
+    chord: {
+      source: {
+        startAngle: 0, endAngle: aLittleBit
+      },
+      target: {
+        startAngle: 2 * Math.PI - aLittleBit, endAngle: 2 * Math.PI
+      }
+    }
+  };
 
   var arc = d3.svg.arc()
       .innerRadius(innerRadius)
       .outerRadius(outerRadius);
 
   var layout = d3.layout.chord()
-      // .padding(0.01)
-      // .sortGroups(d3.descending)
+      // TODO: substract padding from chords, instead of adding it to chrord sum
+      // .padding(arcPadding)
       .sortSubgroups(d3.descending)
       .sortChords(d3.descending);
 
@@ -46,6 +63,7 @@
   svg.append("circle")
       .attr("r", outerRadius);
 
+  // calculate *star* style label position and angle
   function labelPosition(angle) {
     var radius = outerRadius + labelPadding;
     return {
@@ -55,8 +73,10 @@
     };
   }
 
+  // global data object
   var data;
 
+  // get the region of a country by index
   function region(index) {
     var r = 0;
     for (var i = 0; i < data.regions.length; i++) {
@@ -68,20 +88,59 @@
     return r;
   }
 
+  // previous data stored for animation
   var previous = {
     groups: {},
     labels: {},
     chords: {}
   };
-  function draw(year, indices) {
+
+  function drawYearSelector(years) {
+    var year = form.selectAll('.year')
+      .data(years);
+    var span = year.enter().append('span')
+      .classed('year', true);
+    span.append('input')
+      .attr({
+        name: 'year',
+        type: 'radio',
+        id: function(d) { return 'year-' + d; },
+        value: function(d) { return d; },
+        checked: function(d, i) { return i === 0 || null; }
+      })
+      .on('click', function(d) {
+        var y = d;
+        year.selectAll('input').attr('checked', function(d) {
+          return y === d || null;
+        });
+        drawChord(d);
+      });
+    span.append('label')
+      .attr('for', function(d) { return 'year-' + d; })
+      .text(function(d) { return d; });
+    d3.select(document.body).on('keypress', function() {
+      var idx = d3.event.which - 49;
+      var y = years[idx];
+      if (y) {
+        year.selectAll('input').each(function(d) {
+          if (d === y) {
+            console.log('jo');
+            d3.select(this).on('click')(d);
+          }
+        });
+      }
+    });
+  }
+
+  // redraw the chord
+  function drawChord(year, indices) {
     year = year || 1990;
     indices = indices || data.regions;
-
-    var countries = indices.map(function(i) { return data.names[i]; });
 
     layout.matrix(data.matrix[year]);
     layout.indices(indices);
 
+    var countries = indices.map(function(i) { return data.names[i]; });
     var colors = d3.scale.category10().domain([0, data.regions.length - 1]);
     
     // Add a group per neighborhood.
@@ -101,7 +160,7 @@
             b = d3.range(data.regions[d.index] + 1, data.regions[d.index + 1]),
             c = indices.slice(d.index + 1);
 
-        draw(year, a.concat(b).concat(c));
+        drawChord(year, a.concat(b).concat(c));
       });
     group.exit().remove();
 
@@ -130,10 +189,10 @@
       .duration(animationDuration)
       .attr("d", arc)
       .each('end', function(d) {
-        previous.groups[d.id] = d;
+        previous.groups[region(d.id)] = d;
       })
-      .attrTween("d", function(b) {
-        var i = d3.interpolate(previous.groups[b.id] || { startAngle: 0, endAngle: 0 }, b);
+      .attrTween("d", function(d) {
+        var i = d3.interpolate(previous.groups[region(d.id)] || initialAngle.arc, d);
         return function (t) { return arc(i(t)); };
       });
     groupPath.exit().remove();
@@ -154,8 +213,8 @@
       .each('end', function(d) {
         previous.labels[d.id] = d.angle;
       })
-      .attrTween("transform", function(b) {
-        var i = d3.interpolate(previous.labels[b.id] || 0, b.angle);
+      .attrTween("transform", function(d) {
+        var i = d3.interpolate(previous.labels[d.id] || previous.labels[data.regions[region(d.id)]] || 0, d.angle);
         return function (t) {
           var t = labelPosition(i(t));
           return 'translate(' + t.x + ' ' + t.y + ') rotate(' + t.r + ')';
@@ -204,10 +263,18 @@
       .duration(animationDuration)
       .attr("d", chordGenerator)
       .each('end', function(d) {
-        previous.chords[d.id] = d;
+        previous.chords[d.source.id] = previous.chords[d.source.id] || {};
+        previous.chords[d.source.id][d.target.id] = d;
       })
-      .attrTween("d", function(b) {
-        var i = d3.interpolate(previous.chords[b.id] || { source: { startAngle: 0, endAngle: 0 }, target: { startAngle: 0, endAngle: 0 } }, b);
+      .attrTween("d", function(d) {
+        var p = previous.chords[d.source.id] && previous.chords[d.source.id][d.target.id];
+        if (!p) {
+          var rs = data.regions[region(d.source.id)];
+          var rt = data.regions[region(d.target.id)];
+          var r = rs && rt && previous.chords[rs] && previous.chords[rs][rt];
+          p = r && { source: { startAngle: r.source.startAngle, endAngle: r.source.endAngle }, target: { startAngle: r.target.startAngle, endAngle: r.target.endAngle } };
+        }
+        var i = d3.interpolate(p || initialAngle.chord, d);
         return function (t) {
           return chordGenerator(i(t));
         };
@@ -223,43 +290,11 @@
     chordTitle.exit().remove();
   }
 
+  // get data
   d3.json(datafile, function(d) {
     data = d;
 
-    var years = Object.keys(data.matrix);
-
-    var year = form.selectAll('.year')
-      .data(years);
-    var span = year.enter().append('span')
-      .classed('year', true);
-
-    span.append('input')
-      .attr({
-        name: 'year',
-        type: 'radio',
-        id: function(d) { return 'year-' + d; },
-        value: function(d) { return d; },
-        checked: function(d, i) { return i === 0 || null; }
-      })
-      .on('click', function(d) {
-        draw(d);
-      });
-
-    span.append('label')
-      .attr('for', function(d) { return 'year-' + d; })
-      .text(function(d) { return d; });
-
-    d3.select(document.body).on('keypress', function() {
-      var idx = d3.event.which - 49;
-      var y = years[idx];
-      if (y) {
-        year.selectAll('input').attr('checked', function(d) {
-          return parseInt(d, 10) === y ? 'checked' : null;
-        });
-        draw(y);
-      }
-    });
-
-    draw();
+    drawYearSelector(Object.keys(data.matrix));
+    drawChord();
   });
 })();
