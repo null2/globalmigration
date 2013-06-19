@@ -80,7 +80,8 @@
     var layout = Globalmigration.layout()
         .padding(config.arcPadding)
         .sortSubgroups(config.layout.sortSubgroups)
-        .sortChords(config.layout.sortChords);
+        .sortChords(config.layout.sortChords)
+        .data(data);
 
     // chord path generator
     var chordGenerator = Globalmigration.chord()
@@ -99,20 +100,14 @@
     // TODO: still needed?
     element.append("circle").attr("r", config.outerRadius);
 
-    function draw(year, indices) {
+    function draw(year, countries) {
       year = year || Object.keys(data.matrix)[0];
-      indices = indices || data.regions;
+      countries = countries || [];
 
-      layout.matrix(data.matrix[year]);
-      layout.indices(indices);
+      layout
+        .year(year)
+        .countries(countries);
 
-      // set year
-      // layout.year(year);
-      
-      // show all countries for region ids
-      // layout.countries([1,2,3]);
-
-      var countries = indices.map(function(i) { return data.names[i]; });
       var colors = d3.scale.category10().domain([0, data.regions.length - 1]);
       
       // Add a group per neighborhood.
@@ -128,11 +123,7 @@
           });
         })
         .on('click', function(d) {
-          var a = indices.slice(0, d.index),
-              b = d3.range(data.regions[d.index] + 1, data.regions[d.index + 1]),
-              c = indices.slice(d.index + 1);
-
-          draw(year, a.concat(b).concat(c));
+          draw(year, countries.concat(d.index).sort());
         });
       group.exit().remove();
 
@@ -200,7 +191,7 @@
       groupText.enter()
         .append("text");
       groupText
-        .text(function(d) { return countries[d.index]; })
+        .text(function(d) { return data.names[d.id]; })
         .attr('transform', function(d) {
           return d.angle > 1/2 * Math.PI ? 'rotate(180)' : null;
         })
@@ -228,7 +219,7 @@
           var hsl = d3.hsl(colors(r));
 
           // TODO: fixme and make me configurable
-          var l = d3.scale.linear().domain([0, countries.length]).range([Math.min(hsl.l - 0.2, 0.3), Math.max(hsl.l + 0.2, 0.5)]);
+          var l = d3.scale.linear().domain([0, layout.groups().length]).range([Math.min(hsl.l - 0.2, 0.3), Math.max(hsl.l + 0.2, 0.5)]);
 
           return d3.hsl(hsl.h, hsl.s, l(d.target.index)).toString();
         })
@@ -259,7 +250,7 @@
         .data(function(d) { return [d]; });
       chordTitle.enter().append('title');
       chordTitle
-        .text(function(d) { return countries[d.source.index]; });
+        .text(function(d) { return data.names[d.source.index]; });
       chordTitle.exit().remove();
     }
 

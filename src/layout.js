@@ -8,7 +8,6 @@
 
 // Basically a d3.layout.chord, but with
 // * 
-// TODO: substract padding from chords, instead of adding it to chrord sum
 (function(scope) {
   // from d3/layout/chord.js
 
@@ -20,8 +19,11 @@
     var chord = {},
         chords,
         groups,
+        data,
         matrix,
         indices,
+        countries,
+        year,
         n,
         padding = 0,
         threshold = 1000,
@@ -39,6 +41,10 @@
           x0,
           i,
           j;
+
+      data = data || { matrix: {}, names: [], regions: []};
+      year = Object.keys(data.matrix)[0];
+      matrix = year && data.matrix[year] || [];
 
       chords = [];
       groups = [];
@@ -73,16 +79,13 @@
         });
       }
 
+      // TODO: substract padding from chords, instead of adding it to chrord sum
+      padding = 0;
+
       // Convert the sum to scaling factor for [0, 2pi].
       // TODO Allow start and end angle to be specified.
       // TODO Allow padding to be specified as percentage?
       k = (2 * π - padding * n) / k;
-
-      //          Asia     Africa   Europe
-      //        + -------------------------
-      // Asia   | 5661442  30498    302427
-      // Africa | 9547     7341354  962816
-      // Europe | 31392    554466   3625105
 
       // Compute the start and end angle for each group and subgroup.
       // Note: Opera has a bug reordering object literal properties!
@@ -219,17 +222,33 @@
       });
     }
 
-    chord.matrix = function(x) {
-      if (!arguments.length) return matrix;
-      n = (matrix = x) && matrix.length;
-      indices = d3.range(n);
+    chord.data = function(x) {
+      if (!arguments.length) return data;
+      data = x;
+      indices = data.regions.slice();
+      n = indices.length;
       chords = groups = null;
       return chord;
     };
 
-    chord.indices = function(x) {
-      if (!arguments.length) return indices;
-      n = (indices = x) && indices.length;
+    chord.year = function(x) {
+      if (!arguments.length) return year;
+      year = x;
+      chords = groups = null;
+      return chord;
+    };
+
+    chord.countries = function(x) {
+      if (!arguments.length) return countries;
+      countries = x;
+      indices = data.regions.slice();
+      countries.forEach(function(country) {
+        var idx = data.regions[country];
+        var c = d3.range(idx + 1, data.regions[country + 1] || data.names.length);
+
+        Array.prototype.splice.apply(indices, [indices.indexOf(idx), 1].concat(c));
+      });
+      n = indices.length;
       chords = groups = null;
       return chord;
     };
