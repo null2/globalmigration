@@ -22,8 +22,46 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-        <script src="src/d3/svg/chord.js"></script>
-        <script src="src/d3/layout/chord.js"></script>
-        <script src="src/main.js"></script>
+        <script src="src/layout.js"></script>
+        <script src="src/chord.js"></script>
+        <script src="src/timeline.js"></script>
+        <script src="src/diagram.js"></script>
+        <script>
+          (function() {
+            var datafile = 'migrations.json';
+            var aLittleBit = Math.PI / 100000;
+            var options = {
+              arcPadding: 0,
+              animationDuration: 1000,
+              initialAngle: {
+                arc: {
+                  startAngle: 0,
+                  endAngle: aLittleBit
+                },
+                chord: {
+                  source: {
+                    startAngle: 0,
+                    endAngle: aLittleBit
+                  },
+                  target: {
+                    startAngle: 2 * Math.PI - aLittleBit,
+                    endAngle: 2 * Math.PI
+                  }
+                }
+              }
+            };
+
+            // fetch data
+            d3.json(datafile, function(data) {
+              var now = 2005;
+              var diagram = Globalmigration.diagram(data, options);
+
+              Globalmigration.timeline(diagram, {
+                now: now
+              });
+              diagram.draw(now);
+            });
+          })();
+        </script>
     </body>
 </html>
