@@ -1,9 +1,10 @@
 TODO
 ====
 
-* Klick auf Laender dektivieren (oder die entsprechende Region wieder zuklappen)
 * Jahreswechsel schliesst ausgeklappte Regionen
 * Beim Jahreswechsel erscheinen neue Chrords ohne Animation / springen
+* Beim Zuklappen: Chords sollen verschmelzen
+* Beim Aufklappen gibt es eine unnoetige Transition bei der vorher aufgeklappten Region
 
 
 DONE
@@ -17,3 +18,4 @@ DONE
 * Korrente Farbvariationen innerhalb aufgeklappter Regionen
 * Hide overlapping labels
 * Use Carto Gothic font
+* Klick auf Laender dektivieren (oder die entsprechende Region wieder zuklappen)

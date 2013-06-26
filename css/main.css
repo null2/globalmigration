@@ -87,7 +87,7 @@ svg {
   font-size: 12px;
 }
 .year label {
-  padding: 1ex 1em;
+  padding: 0 1em;
   cursor: pointer;
 }
 .year input {

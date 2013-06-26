@@ -19,7 +19,7 @@
     // geometry
     config.width = config.width || 960;
     config.height = config.height || 960;
-    config.margin = config.margin || 120;
+    config.margin = config.margin || 125;
     config.outerRadius = config.outerRadius || (Math.min(config.width, config.height) / 2 - config.margin);
     config.arcWidth = config.arcWidth || 24;
     config.innerRadius = config.innerRadius || (config.outerRadius - config.arcWidth);
@@ -121,7 +121,6 @@
         .year(year)
         .countries(countries);
 
-      // Add a group per neighborhood.
       var group = element.selectAll(".group")
         .data(layout.groups, function(d) { return d.id; });
       group.enter()
@@ -132,14 +131,20 @@
           chord.classed("fade", function(p) {
             return p.source.index !== i && p.target.index !== i;
           });
+        });
+      group.exit().remove();
+      
+      group
+        .filter(function(d) {
+          return d.id === d.region;
         })
+        .classed('region', true)
         .on('click', function(d) {
           if (countries.length + 1 > config.maxRegionsOpen) {
             countries.shift();
           }
           draw(year, countries.concat(d.id));
-        });
-      group.exit().remove();
+      });
 
       // Add a mouseover title to arcs.
       var title = group.selectAll('title')
@@ -208,9 +213,6 @@
         })
         .attr('text-anchor', function(d) {
           return d.angle > Math.PI ? 'end' : 'start';
-        })
-        .classed('region', function(d) {
-          return d.id === d.region;
         })
         .style('fill', function(d) {
           return d.id === d.region ? arcColor(d) : 'black';

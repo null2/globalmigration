@@ -34,12 +34,12 @@ path.chord {
   opacity: 0;
 }
 
-.group path,
-.group text {
+.group.region path,
+.group.region text {
   cursor: pointer;
 }
 
-.group text.region {
+.group.region text {
   font-family: 'CartoGothicStdBold', Arial, sans-serif;
   font-size: 14px;
 }
