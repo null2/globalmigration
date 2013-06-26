@@ -1,8 +1,8 @@
 TODO
 ====
 
-* korrente Farbvariationen innerhalb aufgeklappter Regionen
 * Klick auf Laender dektivieren (oder die entsprechende Region wieder zuklappen)
+* Jahreswechsel schliesst ausgeklappte Regionen
 
 
 DONE
@@ -13,3 +13,4 @@ DONE
 * korrekter Ausgangszustand der Chords beim Aufklappen (die Migrationsstroeme faechern sich auf)
 * Labels der Laender manchmal falschherum
 * Jahreswechsel funktioniert nicht mehr
+* korrente Farbvariationen innerhalb aufgeklappter Regionen

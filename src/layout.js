@@ -26,7 +26,6 @@
         year,
         n,
         padding = 0,
-        // threshold = 1000,
         threshold = 0,
         sortGroups,
         sortSubgroups,
@@ -58,6 +57,7 @@
       data = data || { matrix: {}, names: [], regions: []};
       year = year || Object.keys(data.matrix)[0];
       matrix = year && data.matrix[year] || [];
+      threshold = threshold || 0;
 
       chords = [];
       groups = [];
@@ -270,6 +270,13 @@
     chord.padding = function(x) {
       if (!arguments.length) return padding;
       padding = x;
+      chords = groups = null;
+      return chord;
+    };
+
+    chord.threshold = function(x) {
+      if (!arguments.length) return threshold;
+      threshold = x;
       chords = groups = null;
       return chord;
     };

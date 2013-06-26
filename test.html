@@ -33,22 +33,25 @@
             var aLittleBit = Math.PI / 100000;
             var options = {
               animationDuration: 1000,
-              initialAngle: {
-                arc: {
-                  startAngle: 0,
-                  endAngle: aLittleBit
-                },
-                chord: {
-                  source: {
-                    startAngle: 0,
-                    endAngle: aLittleBit
-                  },
-                  target: {
-                    startAngle: 2 * Math.PI - aLittleBit,
-                    endAngle: 2 * Math.PI
-                  }
-                }
+              layout: {
+                threshold: 10000
               }
+              // initialAngle: {
+              //   arc: {
+              //     startAngle: 0,
+              //     endAngle: aLittleBit
+              //   },
+              //   chord: {
+              //     source: {
+              //       startAngle: 0,
+              //       endAngle: aLittleBit
+              //     },
+              //     target: {
+              //       startAngle: 0,
+              //       endAngle: aLittleBit
+              //     }
+              //   }
+              // }
             };
 
             // fetch data

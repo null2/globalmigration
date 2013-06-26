@@ -30,17 +30,19 @@
     config.labelRadius = config.labelRadius || (config.outerRadius + config.labelPadding);
 
     // animation
+    var aLittleBit = Math.PI / 100000;
     config.animationDuration = config.animationDuration || 1000;
     config.initialAngle = config.initialAngle || {};
-    config.initialAngle.arc = config.initialAngle.arc || { startAngle: 0, endAngle: 0 };
+    config.initialAngle.arc = config.initialAngle.arc || { startAngle: 0, endAngle: aLittleBit };
     config.initialAngle.chord = config.initialAngle.chord || { source: config.initialAngle.arc, target: config.initialAngle.arc }
 
     // layout
     config.layout = config.layout || {};
     config.layout.sortSubgroups = config.layout.sortSubgroups || d3.descending;
     config.layout.sortChords = config.layout.sortChords || d3.descending;
+    config.layout.threshold = config.layout.threshold || 1000;
 
-    config.maxRegionsOpen = 2;
+    config.maxRegionsOpen = config.maxRegionsOpen || 2;
 
     // state before animation
     var previous = {
@@ -59,6 +61,39 @@
       };
     }
 
+    // get number of countries per region
+    function regionSize(region) {
+      var idx = data.regions.indexOf(region);
+      return (data.regions[idx + 1] || data.names.length) - region;
+    }
+
+    var colors = d3.scale.category10().domain(data.regions);
+
+    function arcColor(d) {
+      var color = colors(d.region);
+
+      if (d.region === d.id) {
+        return color;
+      }
+      var hsl = d3.hsl(color);
+
+      // TODO: fixme and make me configurable
+      var l = d3.scale.linear().domain([0, regionSize(d.region)]).range([Math.min(hsl.l - 0.4, 0.2), Math.max(hsl.l + 0.4, 0.8)]);
+
+      return d3.hsl(hsl.h, hsl.s, l(d.id - d.region)).toString();
+    }
+
+    function chordColor(d) {
+      var color = arcColor(d.source);
+
+      var hsl = d3.hsl(color);
+
+      // TODO: fixme and make me configurable
+      var l = d3.scale.linear().domain([0, layout.groups().length]).range([Math.min(hsl.l - 0.2, 0.3), Math.max(hsl.l + 0.2, 0.5)]);
+
+      return d3.hsl(hsl.h, hsl.s, l(d.target.index)).toString();
+    }
+      
 
     // arc generator
     var arc = d3.svg.arc()
@@ -70,6 +105,7 @@
         .padding(config.arcPadding)
         .sortSubgroups(config.layout.sortSubgroups)
         .sortChords(config.layout.sortChords)
+        .threshold(config.layout.threshold)
         .data(data);
 
     // chord path generator
@@ -86,9 +122,6 @@
         .attr("id", "circle")
         .attr("transform", "translate(" + config.width / 2 + "," + config.height / 2 + ")");
 
-    // TODO: still needed?
-    element.append("circle").attr("r", config.outerRadius);
-
     function draw(year, countries) {
       year = year || Object.keys(data.matrix)[0];
       countries = countries || [];
@@ -97,8 +130,6 @@
         .year(year)
         .countries(countries);
 
-      var colors = d3.scale.category10().domain(data.regions);
-      
       // Add a group per neighborhood.
       var group = element.selectAll(".group")
         .data(layout.groups, function(d) { return d.id; });
@@ -136,9 +167,7 @@
         .attr("class", "group-arc")
         .attr("id", function(d, i, k) { return "group" + k; });
       groupPath
-        .style("fill", function(d) {
-          return colors(d.region);
-        })
+        .style("fill", arcColor)
         .transition()
         .duration(config.animationDuration)
         .attr("d", arc)
@@ -205,14 +234,7 @@
         .append("path")
         .attr("class", "chord");
       chord
-        .style("fill", function(d, i) {
-          var hsl = d3.hsl(colors(d.source.region));
-
-          // TODO: fixme and make me configurable
-          var l = d3.scale.linear().domain([0, layout.groups().length]).range([Math.min(hsl.l - 0.2, 0.3), Math.max(hsl.l + 0.2, 0.5)]);
-
-          return d3.hsl(hsl.h, hsl.s, l(d.target.index)).toString();
-        })
+        .style("fill", chordColor)
         .transition()
         .duration(config.animationDuration)
         .attr("d", chordGenerator)
