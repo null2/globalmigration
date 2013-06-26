@@ -49,7 +49,8 @@
     var previous = {
       groups: {},
       labels: {},
-      chords: {}
+      chords: {},
+      countries: []
     };
 
 
@@ -113,9 +114,12 @@
         .attr("id", "circle")
         .attr("transform", "translate(" + config.width / 2 + "," + config.height / 2 + ")");
 
+
+    // finally draw the diagram
     function draw(year, countries) {
       year = year || Object.keys(data.matrix)[0];
-      countries = countries || [];
+      countries = countries || previous.countries;
+      previous.countries = countries;
 
       layout
         .year(year)
