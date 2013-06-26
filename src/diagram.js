@@ -40,6 +40,7 @@
     config.layout.sortSubgroups = config.layout.sortSubgroups || d3.descending;
     config.layout.sortChords = config.layout.sortChords || d3.descending;
 
+    config.maxRegionsOpen = 3;
 
     // state before animation
     var previous = {
@@ -103,7 +104,6 @@
     function draw(year, countries) {
       year = year || Object.keys(data.matrix)[0];
       countries = countries || [];
-      console.log(countries);
 
       layout
         .year(year)
@@ -124,6 +124,9 @@
           });
         })
         .on('click', function(d) {
+          if (countries.length + 1 > config.maxRegionsOpen) {
+            countries.shift();
+          }
           draw(year, countries.concat(d.id));
         });
       group.exit().remove();
