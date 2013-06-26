@@ -56,7 +56,7 @@
           j;
 
       data = data || { matrix: {}, names: [], regions: []};
-      year = Object.keys(data.matrix)[0];
+      year = year || Object.keys(data.matrix)[0];
       matrix = year && data.matrix[year] || [];
 
       chords = [];
