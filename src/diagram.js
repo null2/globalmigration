@@ -125,6 +125,7 @@
         .year(year)
         .countries(countries);
 
+      // groups
       var group = element.selectAll(".group")
         .data(layout.groups, function(d) { return d.id; });
       group.enter()
@@ -138,6 +139,7 @@
         });
       group.exit().remove();
       
+      // regions
       group
         .filter(function(d) {
           return d.id === d.region;
@@ -150,7 +152,7 @@
           draw(year, countries.concat(d.id));
       });
 
-      // Add a mouseover title to arcs.
+      // Add a mouseover title
       var title = group.selectAll('title')
         .data(function(d) { return d.id; });
       title.enter()
@@ -159,7 +161,7 @@
         .text(function(d) { return d; });
       title.exit().remove();
 
-      // Add the group arc.
+      // Add the group arc
       var groupPath = group.selectAll('.group-arc')
         .data(function(d) { return [d]; });
       groupPath.enter()
@@ -172,10 +174,10 @@
         .duration(config.animationDuration)
         .attr("d", arc)
         .each('end', function(d) {
-          previous.groups[d.region] = d;
+          previous.groups[d.id] = d;
         })
         .attrTween("d", function(d) {
-          var i = d3.interpolate(previous.groups[d.region] || config.initialAngle.arc, d);
+          var i = d3.interpolate(previous.groups[d.id] || previous.groups[d.region] || config.initialAngle.arc, d);
           return function (t) { return arc(i(t)); };
         });
       groupPath.exit().remove();
