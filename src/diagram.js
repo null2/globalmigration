@@ -97,7 +97,7 @@
         .year(year)
         .countries(countries);
 
-      var colors = d3.scale.category10().domain([0, data.regions.length - 1]);
+      var colors = d3.scale.category10().domain(data.regions);
       
       // Add a group per neighborhood.
       var group = element.selectAll(".group")
