@@ -26,10 +26,23 @@
         year,
         n,
         padding = 0,
-        threshold = 1000,
+        // threshold = 1000,
+        threshold = 0,
         sortGroups,
         sortSubgroups,
         sortChords;
+
+    // get region from country index
+    function region(index) {
+      var r = 0;
+      for (var i = 0; i < data.regions.length; i++) {
+        if (data.regions[i] > index) {
+          break;
+        }
+        r = i;
+      }
+      return data.regions[r];
+    }
 
     function relayout() {
       var subgroups = {},
@@ -127,6 +140,7 @@
         
         groups[di] = {
           id: indices[di],
+          region: region(indices[di]),
           index: di,
           startAngle: lastX0,
           endAngle: x,
@@ -148,6 +162,7 @@
                 id: 'source-' + indices[i] + "-" + indices[j],
                 source: {
                   id: indices[source.index],
+                  region: region(indices[source.index]),
                   index: source.index,
                   subindex: source.subindex,
                   startAngle: source.startAngle,
@@ -156,6 +171,7 @@
                 },
                 target: {
                   id: indices[target.index],
+                  region: region(indices[target.index]),
                   index: target.index,
                   subindex: target.subindex,
                   startAngle: target.startAngle,
@@ -170,6 +186,7 @@
                 id: 'source-' + indices[i] + "-" + indices[j],
                 source: {
                   id: indices[source.index],
+                  region: region(indices[source.index]),
                   index: source.index,
                   subindex: source.subindex,
                   startAngle: source.startAngle,
@@ -178,6 +195,7 @@
                 },
                 target: {
                   id: indices[target.index],
+                  region: region(indices[target.index]),
                   index: target.index,
                   subindex: target.subindex,
                   startAngle: target.startAngle,
@@ -193,6 +211,7 @@
                 id: 'target-' + indices[i] + "-" + indices[j],
                 source: {
                   id: indices[source.index],
+                  region: region(indices[source.index]),
                   index: source.index,
                   subindex: source.subindex,
                   startAngle: source.startAngle,
@@ -201,6 +220,7 @@
                 },
                 target: {
                   id: indices[target.index],
+                  region: region(indices[target.index]),
                   index: target.index,
                   subindex: target.subindex,
                   startAngle: target.startAngle,

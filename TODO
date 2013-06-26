@@ -1,0 +1,15 @@
+TODO
+====
+
+* korrente Farbvariationen innerhalb aufgeklappter Regionen
+* Jahreswechsel funktioniert nicht mehr
+* Klick auf Laender dektivieren (oder die entsprechende Region wieder zuklappen)
+* Labels der Laender manchmal falschherum
+
+
+DONE
+====
+
+* Aufklappen mehrerer Regionen fehlerhaft
+* nur zwei (drei?) Regionen maximal aufklappbar
+* korrekter Ausgangszustand der Chords beim Aufklappen (die Migrationsstroeme faechern sich auf)

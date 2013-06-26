@@ -40,7 +40,7 @@
     config.layout.sortSubgroups = config.layout.sortSubgroups || d3.descending;
     config.layout.sortChords = config.layout.sortChords || d3.descending;
 
-    config.maxRegionsOpen = 3;
+    config.maxRegionsOpen = 2;
 
     // state before animation
     var previous = {
@@ -57,18 +57,6 @@
         y: Math.sin(angle - π / 2) * config.labelRadius,
         r: (angle - π / 2) * 180 / π
       };
-    }
-
-    // get region from country index
-    function region(index) {
-      var r = 0;
-      for (var i = 0; i < data.regions.length; i++) {
-        if (data.regions[i] > index) {
-          break;
-        }
-        r = i;
-      }
-      return r;
     }
 
 
@@ -149,17 +137,16 @@
         .attr("id", function(d, i, k) { return "group" + k; });
       groupPath
         .style("fill", function(d) {
-          var r = region(d.id);
-          return colors(r);
+          return colors(d.region);
         })
         .transition()
         .duration(config.animationDuration)
         .attr("d", arc)
         .each('end', function(d) {
-          previous.groups[region(d.id)] = d;
+          previous.groups[d.region] = d;
         })
         .attrTween("d", function(d) {
-          var i = d3.interpolate(previous.groups[region(d.id)] || config.initialAngle.arc, d);
+          var i = d3.interpolate(previous.groups[d.region] || config.initialAngle.arc, d);
           return function (t) { return arc(i(t)); };
         });
       groupPath.exit().remove();
@@ -181,7 +168,7 @@
           previous.labels[d.id] = d.angle;
         })
         .attrTween("transform", function(d) {
-          var i = d3.interpolate(previous.labels[d.id] || previous.labels[data.regions[region(d.id)]] || 0, d.angle);
+          var i = d3.interpolate(previous.labels[d.id] || previous.labels[d.region] || 0, d.angle);
           return function (t) {
             var t = labelPosition(i(t));
             return 'translate(' + t.x + ' ' + t.y + ') rotate(' + t.r + ')';
@@ -219,8 +206,7 @@
         .attr("class", "chord");
       chord
         .style("fill", function(d, i) {
-          var r = region(d.source.id);
-          var hsl = d3.hsl(colors(r));
+          var hsl = d3.hsl(colors(d.source.region));
 
           // TODO: fixme and make me configurable
           var l = d3.scale.linear().domain([0, layout.groups().length]).range([Math.min(hsl.l - 0.2, 0.3), Math.max(hsl.l + 0.2, 0.5)]);
@@ -236,12 +222,7 @@
         })
         .attrTween("d", function(d) {
           var p = previous.chords[d.source.id] && previous.chords[d.source.id][d.target.id];
-          if (!p) {
-            var rs = data.regions[region(d.source.id)];
-            var rt = data.regions[region(d.target.id)];
-            var r = rs && rt && previous.chords[rs] && previous.chords[rs][rt];
-            p = r && { source: { startAngle: r.source.startAngle, endAngle: r.source.endAngle }, target: { startAngle: r.target.startAngle, endAngle: r.target.endAngle } };
-          }
+          p = p || (previous.chords[d.source.region] && previous.chords[d.source.region][d.target.region]);
           var i = d3.interpolate(p || config.initialAngle.chord, d);
           return function (t) {
             return chordGenerator(i(t));
