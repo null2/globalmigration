@@ -257,7 +257,7 @@
         .data(function(d) { return [d]; });
       chordTitle.enter().append('title');
       chordTitle
-        .text(function(d) { return data.names[d.source.index]; });
+        .text(function(d) { return data.names[d.source.id]; });
       chordTitle.exit().remove();
     }
 
