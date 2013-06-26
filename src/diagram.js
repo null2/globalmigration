@@ -184,10 +184,10 @@
       groupText
         .text(function(d) { return data.names[d.id]; })
         .attr('transform', function(d) {
-          return d.angle > 1/2 * Math.PI ? 'rotate(180)' : null;
+          return d.angle > Math.PI ? 'rotate(180)' : null;
         })
         .attr('text-anchor', function(d) {
-          return d.angle > 1/2 * Math.PI ? 'end' : 'start';
+          return d.angle > Math.PI ? 'end' : 'start';
         });
       groupText.exit().remove();
 
