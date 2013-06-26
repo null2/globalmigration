@@ -103,6 +103,7 @@
     function draw(year, countries) {
       year = year || Object.keys(data.matrix)[0];
       countries = countries || [];
+      console.log(countries);
 
       layout
         .year(year)
@@ -123,7 +124,7 @@
           });
         })
         .on('click', function(d) {
-          draw(year, countries.concat(d.index).sort());
+          draw(year, countries.concat(d.id));
         });
       group.exit().remove();
 

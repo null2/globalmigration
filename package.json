@@ -32,7 +32,8 @@
     "grunt": "~0.4.1",
     "http-server": "~0.5.3",
     "csv": "~0.3.2",
-    "lodash": "~1.2.1"
+    "lodash": "~1.2.1",
+    "grunt-contrib-nodeunit": "~0.2.0"
   },
   "keywords": []
 }

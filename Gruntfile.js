@@ -20,12 +20,16 @@ module.exports = function(grunt) {
         src: ['src/*.js']
       }
     },
+    nodeunit: {
+      files: ['test/**/*_test.js']
+    },
     clean: ['migrations.json']
   });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
   grunt.registerTask('compile', 'Compile original data', function() {
     var done = this.async();
@@ -50,5 +54,5 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'compile']);
+  grunt.registerTask('default', ['jshint', 'test', 'compile']);
 };

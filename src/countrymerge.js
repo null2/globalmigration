@@ -13,13 +13,12 @@
       if (countries.indexOf(region) === -1) {
         memo.push(region);
       } else {
-        var idx = d3.range(region + 1, data.regions[region + 1] || data.names.length);
-        idx.forEach(function(c) {
-          memo.push(c);
-        });
+        for (var idx = region + 1; idx < (data.regions[i + 1] || data.names.length); idx++) {
+          memo.push(idx);
+        }
       }
 
       return memo;
     }, []);
   };
-})(window.Globalmigration || (window.Globalmigration = {}));
+})((typeof exports !== 'undefined' && exports) || window.Globalmigration || (window.Globalmigration = {}));
