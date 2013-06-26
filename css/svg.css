@@ -13,7 +13,10 @@ path.chord {
   stroke-width: .25px;
 }
 */
-
+text {
+  cursor: default;
+  fill: #333;
+}
 .group-arc + text {
   -webkit-transition: opacity 0.4s;
   -moz-transition: opacity 0.4s;
@@ -31,6 +34,9 @@ path.chord {
   transition: opacity 0.4s;
 }
 #circle:hover path.fade {
+  opacity: 0;
+}
+text.fade {
   opacity: 0;
 }
 

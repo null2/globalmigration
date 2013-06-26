@@ -34,7 +34,7 @@
     config.animationDuration = config.animationDuration || 1000;
     config.initialAngle = config.initialAngle || {};
     config.initialAngle.arc = config.initialAngle.arc || { startAngle: 0, endAngle: aLittleBit };
-    config.initialAngle.chord = config.initialAngle.chord || { source: config.initialAngle.arc, target: config.initialAngle.arc }
+    config.initialAngle.chord = config.initialAngle.chord || { source: config.initialAngle.arc, target: config.initialAngle.arc };
 
     // layout
     config.layout = config.layout || {};
@@ -108,6 +108,8 @@
 
     // svg element
     var svg = d3.select(config.element).append("svg")
+        .attr('preserveAspectRatio', 'xMinYMin')
+        .attr('viewBox', '0 0 ' + config.width + ' ' + config.height)
         .attr("width", config.width)
         .attr("height", config.height);
     var element = svg.append("g")
@@ -125,21 +127,21 @@
         .year(year)
         .countries(countries);
 
-      // groups
+      // Groups
       var group = element.selectAll(".group")
         .data(layout.groups, function(d) { return d.id; });
       group.enter()
         .append("g")
         .attr("class", "group");
       group
-        .on("mouseover", function(d, i) {
+        .on("mouseover", function(d) {
           chord.classed("fade", function(p) {
-            return p.source.index !== i && p.target.index !== i;
+            return p.source.id !== d.id && p.target.id !== d.id;
           });
         });
       group.exit().remove();
       
-      // regions
+      // Regions
       group
         .filter(function(d) {
           return d.id === d.region;
@@ -152,7 +154,7 @@
           draw(year, countries.concat(d.id));
       });
 
-      // Add a mouseover title
+      // Mouseover title on arcs
       var title = group.selectAll('title')
         .data(function(d) { return d.id; });
       title.enter()
@@ -161,7 +163,7 @@
         .text(function(d) { return d; });
       title.exit().remove();
 
-      // Add the group arc
+      // Group arc
       var groupPath = group.selectAll('.group-arc')
         .data(function(d) { return [d]; });
       groupPath.enter()
@@ -182,7 +184,7 @@
         });
       groupPath.exit().remove();
       
-      // Add a text label group
+      // Text label group
       var groupTextGroup = group.selectAll('.label')
         .data(function(d) { return [d]; });
       groupTextGroup.enter()
@@ -207,7 +209,7 @@
         });
       groupTextGroup.exit().remove();
 
-      // Add a text label.
+      // Text label
       var groupText = groupTextGroup.selectAll('text')
         .data(function(d) { return [d]; });
       groupText.enter()
@@ -221,16 +223,16 @@
           return d.angle > Math.PI ? 'end' : 'start';
         })
         .style('fill', function(d) {
-          return d.id === d.region ? arcColor(d) : 'black';
+          return d.id === d.region ? arcColor(d) : null;
         })
-        .style('opacity', function(d) {
+        .classed('fade', function(d) {
           // hide labels for countries with small migrations (less than config.layout.labelThreshold)
-          return d.value < config.layout.labelThreshold ? 0 : 1;
+          return d.value < config.layout.labelThreshold;
         });
       groupText.exit().remove();
 
 
-      // Add the chords.
+      // Chords
       var chord = element.selectAll(".chord")
           .data(layout.chords, function(d) { return d.id; });
       chord.enter()
@@ -248,14 +250,15 @@
         .attrTween("d", function(d) {
           var p = previous.chords[d.source.id] && previous.chords[d.source.id][d.target.id];
           p = p || (previous.chords[d.source.region] && previous.chords[d.source.region][d.target.region]);
-          var i = d3.interpolate(p || config.initialAngle.chord, d);
+          p = p || config.initialAngle.chord;
+          var i = d3.interpolate(p, d);
           return function (t) {
             return chordGenerator(i(t));
           };
         });
       chord.exit().remove();
 
-      // Add a mouseover title to chords.
+      // Mouseover title on chords
       var chordTitle = chord.selectAll('title')
         .data(function(d) { return [d]; });
       chordTitle.enter().append('title');

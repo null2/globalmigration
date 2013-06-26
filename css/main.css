@@ -79,12 +79,16 @@ textarea {
 body {
   text-align: center;
   font: 18px/27px 'CartoGothicStdBook', Arial, sans-serif;
+  width: 100%;
 }
 h1, h2 {
   font-family: 'CartoGothicStdBold', Arial, sans-serif;
+  line-height: 2ex;
 }
 svg {
   font-size: 12px;
+  max-width: 100%;
+  vector-effect: non-scaling-stroke;
 }
 .year label {
   padding: 0 1em;
@@ -96,9 +100,6 @@ svg {
 .year input[checked] + label {
   font-family: 'CartoGothicStdBold', Arial, sans-serif;
 }
-
-
-
 
 
 /* ==========================================================================
