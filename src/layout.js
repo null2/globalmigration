@@ -7,7 +7,7 @@
  */
 
 // Basically a d3.layout.chord, but with
-// * 
+// Depends on countrymerge.js
 (function(scope) {
   // from d3/layout/chord.js
 
@@ -241,13 +241,7 @@
     chord.countries = function(x) {
       if (!arguments.length) return countries;
       countries = x;
-      indices = data.regions.slice();
-      countries.forEach(function(country) {
-        var idx = data.regions[country];
-        var c = d3.range(idx + 1, data.regions[country + 1] || data.names.length);
-
-        Array.prototype.splice.apply(indices, [indices.indexOf(idx), 1].concat(c));
-      });
+      indices = scope.countrymerge(data, countries);
       n = indices.length;
       chords = groups = null;
       return chord;
