@@ -22,6 +22,11 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
+        <h1>Global Migration</h1>
+        <h2>2013</h2>
+        <div id=timeline></div>
+        <div id=diagram></div>
+
         <script src="src/countrymerge.js"></script>
         <script src="src/layout.js"></script>
         <script src="src/chord.js"></script>
@@ -60,7 +65,8 @@
               var diagram = Globalmigration.diagram(data, options);
 
               Globalmigration.timeline(diagram, {
-                now: now
+                now: now,
+                element: '#timeline'
               });
               diagram.draw(now);
             });

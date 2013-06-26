@@ -19,7 +19,7 @@
     // geometry
     config.width = config.width || 960;
     config.height = config.height || 960;
-    config.margin = config.margin || 100;
+    config.margin = config.margin || 120;
     config.outerRadius = config.outerRadius || (Math.min(config.width, config.height) / 2 - config.margin);
     config.arcWidth = config.arcWidth || 24;
     config.innerRadius = config.innerRadius || (config.outerRadius - config.arcWidth);
@@ -208,6 +208,12 @@
         })
         .attr('text-anchor', function(d) {
           return d.angle > Math.PI ? 'end' : 'start';
+        })
+        .classed('region', function(d) {
+          return d.id === d.region;
+        })
+        .style('fill', function(d) {
+          return d.id === d.region ? arcColor(d) : 'black';
         })
         .style('opacity', function(d) {
           // hide labels for countries with small migrations (less than config.layout.labelThreshold)

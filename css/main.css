@@ -63,12 +63,28 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+@font-face {
+    font-family: "CartoGothicStdBook";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/CartoGothicStd-Book-webfont.eot") format("embedded-opentype"), url("fonts/CartoGothicStd-Book-webfont.woff") format("woff"), url("fonts/CartoGothicStd-Book-webfont.ttf") format("truetype"), url("fonts/CartoGothicStd-Book-webfont.svg") format("svg");
+}
+@font-face {
+    font-family: "CartoGothicStdBoldBook";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/CartoGothicStdBold-Book-webfont.eot") format("embedded-opentype"), url("fonts/CartoGothicStdBold-Book-webfont.woff") format("woff"), url("fonts/CartoGothicStdBold-Book-webfont.ttf") format("truetype"), url("fonts/CartoGothicStdBold-Book-webfont.svg") format("svg");
+}
 
 body {
   text-align: center;
+  font: 18px/27px 'CartoGothicStdBook', Arial, sans-serif;
+}
+h1, h2 {
+  font-family: 'CartoGothicStdBold', Arial, sans-serif;
 }
 svg {
-  font: 10px sans-serif;
+  font-size: 12px;
 }
 .year label {
   padding: 1ex 1em;
@@ -78,7 +94,7 @@ svg {
   display: none;
 }
 .year input[checked] + label {
-  font-weight: bold;
+  font-family: 'CartoGothicStdBold', Arial, sans-serif;
 }
 
 

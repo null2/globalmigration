@@ -3,15 +3,17 @@ TODO
 
 * Klick auf Laender dektivieren (oder die entsprechende Region wieder zuklappen)
 * Jahreswechsel schliesst ausgeklappte Regionen
+* Beim Jahreswechsel erscheinen neue Chrords ohne Animation / springen
 
 
 DONE
 ====
 
 * Aufklappen mehrerer Regionen fehlerhaft
-* nur zwei (drei?) Regionen maximal aufklappbar
-* korrekter Ausgangszustand der Chords beim Aufklappen (die Migrationsstroeme faechern sich auf)
+* Nur zwei (drei?) Regionen maximal aufklappbar
+* Korrekter Ausgangszustand der Chords beim Aufklappen (die Migrationsstroeme faechern sich auf)
 * Labels der Laender manchmal falschherum
 * Jahreswechsel funktioniert nicht mehr
-* korrente Farbvariationen innerhalb aufgeklappter Regionen
-* hide overlapping labels
+* Korrente Farbvariationen innerhalb aufgeklappter Regionen
+* Hide overlapping labels
+* Use Carto Gothic font
