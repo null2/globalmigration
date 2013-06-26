@@ -41,6 +41,7 @@
     config.layout.sortSubgroups = config.layout.sortSubgroups || d3.descending;
     config.layout.sortChords = config.layout.sortChords || d3.descending;
     config.layout.threshold = config.layout.threshold || 1000;
+    config.layout.labelThreshold = config.layout.labelThreshold || 200000;
 
     config.maxRegionsOpen = config.maxRegionsOpen || 2;
 
@@ -70,27 +71,17 @@
     var colors = d3.scale.category10().domain(data.regions);
 
     function arcColor(d) {
-      var color = colors(d.region);
-
       if (d.region === d.id) {
-        return color;
+        return colors(d.region);
       }
-      var hsl = d3.hsl(color);
-
-      // TODO: fixme and make me configurable
+      var hsl = d3.hsl(colors(d.region));
       var l = d3.scale.linear().domain([0, regionSize(d.region)]).range([Math.min(hsl.l - 0.4, 0.2), Math.max(hsl.l + 0.4, 0.8)]);
-
       return d3.hsl(hsl.h, hsl.s, l(d.id - d.region)).toString();
     }
 
     function chordColor(d) {
-      var color = arcColor(d.source);
-
-      var hsl = d3.hsl(color);
-
-      // TODO: fixme and make me configurable
+      var hsl = d3.hsl(arcColor(d.source));
       var l = d3.scale.linear().domain([0, layout.groups().length]).range([Math.min(hsl.l - 0.2, 0.3), Math.max(hsl.l + 0.2, 0.5)]);
-
       return d3.hsl(hsl.h, hsl.s, l(d.target.index)).toString();
     }
       
@@ -217,15 +208,13 @@
         })
         .attr('text-anchor', function(d) {
           return d.angle > Math.PI ? 'end' : 'start';
+        })
+        .style('opacity', function(d) {
+          // hide labels for countries with small migrations (less than config.layout.labelThreshold)
+          return d.value < config.layout.labelThreshold ? 0 : 1;
         });
       groupText.exit().remove();
 
-      // Remove the labels that don't fit. :(
-      // groupText
-      //   .filter(function(d) {
-      //     return d3.select('#group' + d.index).node().getTotalLength() / 2 - 25 < this.getComputedTextLength();
-      //   })
-      //   .remove();
 
       // Add the chords.
       var chord = element.selectAll(".chord")
