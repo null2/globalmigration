@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset=utf-8>
+	<title>Global Migration Data Sheet 2013</title>
+	<meta name=description content="Global Migration Data Sheet 2013: Unique estimates of migration flows between the top 50 sending and receiving countries.">
+	<meta name=viewport content="width=device-width, initial-scale=1.0">
+	<link href=stylesheets/normalize.css rel=stylesheet media=all>
+	<link href=stylesheets/styles.css rel=stylesheet media=all>	
+	<!--[if lt IE 9]><script src=javascripts/html5shiv-printshiv.js></script><![endif]-->
+  <script src=javascripts/d3.v3.min.js></script>
+  <script src="lib/countrymerge.js"></script>
+  <script src="lib/layout.js"></script>
+  <script src="lib/chord.js"></script>
+  <script src="lib/timeline.js"></script>
+  <script src="lib/chart.js"></script>
+</head>
+<body>
+	<header role=banner>
+		<h1>Global Migration Data Sheet 2013</h1>
+		<nav role=navigation>
+      <div id=timeline></div>
+		</nav>
+	</header>
+	
+	<div class=wrap>
+		<main role=main>
+      <div id=info></div>
+      <div id=diagram></div>
+		</main>
+	</div>
+	
+	<footer role=contentinfo>
+    <small>Copyright &copy; <time datetime="2013">2013</time> Team at the Wittgenstein Centre for Demography and Global Human Capital (IIASA,VID/ÖAW,WU): Nikola Sander, Guy J. Abel and Ramon Bauer. Contact: Nikola Sander, Vienna Institute of Demography (VID/ÖAW), <a href=mailto:nikola.sander@oeaw.ac.at>nikola.sander@oeaw.ac.at</a></small>
+	</footer>
+	
+  <script>
+    (function() {
+      var datafile = 'json/migrations.json';
+      var aLittleBit = Math.PI / 100000;
+
+      d3.json(datafile, function(data) {
+        var now = 2005;
+        var chart = Globalmigration.chart(data, {
+          now: now,
+          animationDuration: 3000,
+          element: '#diagram',
+          info: '#info',
+          layout: {
+            threshold: 10000,
+            colors: 'cd3d08 ec8f00 6dae29 683f92 b60275 2058a5 00a592 009d3c 378974 ffca00'.split(' ').map(function(c) { return '#' + c; })
+          }
+        });
+
+        Globalmigration.timeline(chart, {
+          now: now,
+          element: '#timeline'
+        });
+        chart.draw(now);
+      });
+    })();
+  </script>
+	<script>
+		var _gaq=[['_setAccount','UA-XXXX-XX'],['_trackPageview']];(function(a,b){var c=a.createElement(b),d=a.getElementsByTagName(b)[0];c.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";d.parentNode.insertBefore(c,d)})(document,"script");
+	</script>
+</body>
+</html>

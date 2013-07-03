@@ -1,6 +1,6 @@
 'use strict';
 
-var countrymerge = require('../src/countrymerge.js').countrymerge;
+var countrymerge = require('../lib/countrymerge.js').countrymerge;
 
 /*
   ======== A Handy Little Nodeunit Reference ========

@@ -1,0 +1,150 @@
+/* ---------------------------------------------------------
+   HTML5 Bones
+   This stylesheet contains print styling and a section for 
+   you to simply add your own. This is a basic template 
+   after all.
+   ---------------------------------------------------------*/
+	body {
+   
+	}
+	/* Default link styling */
+	a:link { color:#0271fb; }
+	a:visited { color:#bd02fb; }
+	a:hover, a:focus { color:#000; }
+	a:active { color:#fb0e02; }
+	
+	
+	
+/* ---------------------------------------------------------
+   Author's styles
+   ---------------------------------------------------------*/
+@font-face {
+    font-family: "CartoGothicStdBook";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/CartoGothicStd-Book-webfont.eot") format("embedded-opentype"), url("fonts/CartoGothicStd-Book-webfont.woff") format("woff"), url("fonts/CartoGothicStd-Book-webfont.ttf") format("truetype"), url("fonts/CartoGothicStd-Book-webfont.svg") format("svg");
+}
+@font-face {
+    font-family: "CartoGothicStdBoldBook";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/CartoGothicStdBold-Book-webfont.eot") format("embedded-opentype"), url("fonts/CartoGothicStdBold-Book-webfont.woff") format("woff"), url("fonts/CartoGothicStdBold-Book-webfont.ttf") format("truetype"), url("fonts/CartoGothicStdBold-Book-webfont.svg") format("svg");
+}
+
+body {
+  text-align: center;
+  font: 18px/27px 'CartoGothicStdBook', Arial, sans-serif;
+  width: 100%;
+}
+h1, h2 {
+  font-family: 'CartoGothicStdBold', Arial, sans-serif;
+  line-height: 2ex;
+}
+.year label {
+  padding: 0 1em;
+  cursor: pointer;
+  font-weight: normal;
+}
+.year input {
+  display: none;
+}
+.year input[checked] + label {
+  font-family: 'CartoGothicStdBold', Arial, sans-serif;
+  font-weight: bold;
+}
+
+#info {
+  min-height: 3ex;
+  margin: 1ex 0;
+}
+#info p {
+  margin: 0;
+}
+footer {
+  margin: 3ex 0 6ex 0;
+}
+
+/* ---------------------------------------------------------
+   SVG styles
+   ---------------------------------------------------------*/
+svg {
+  font-size: 12px;
+  max-width: 100%;
+  vector-effect: non-scaling-stroke;
+}
+#circle circle {
+  fill: none;
+  pointer-events: all;
+}
+text {
+  cursor: default;
+  fill: #333;
+}
+.group-arc + text {
+  -webkit-transition: opacity 0.4s;
+  -moz-transition: opacity 0.4s;
+  -o-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+}
+.group-arc.animate + text {
+  opacity: 0;
+}
+#circle path {
+  -webkit-transition: opacity 0.4s;
+  -moz-transition: opacity 0.4s;
+  -o-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+}
+#circle:hover path.fade {
+  opacity: 0;
+}
+text.fade {
+  opacity: 0;
+}
+.group path,
+.group text {
+  cursor: pointer;
+}
+.group.region text {
+  font-family: 'CartoGothicStdBold', Arial, sans-serif;
+  font-size: 14px;
+}
+.chord {
+  opacity: 0.75;
+}
+	
+/* ---------------------------------------------------------
+   Print styles
+   ---------------------------------------------------------*/
+@media print {
+    * {
+        color:#000 !important;
+        box-shadow:none !important;
+        text-shadow:none !important;
+		background:transparent !important;
+    }
+	html { background-color:#fff; }
+	/* Hide navigation */
+	nav { display:none; }
+
+	/* Show link destinations in brackets after the link text */
+	a[href]:after { content: " (" attr(href) ") "; }
+	a[href] {
+		font-weight:bold;
+		text-decoration:underline;
+		color:#06c;
+		border:none;
+	}
+	/* Don't show link destinations for JavaScript or internal links */ 
+	a[href^="javascript:"]:after, a[href^="#"]:after { content:""; }
+	
+	/* Show abbr title value in brackets after the text */
+	abbr[title]:after { content: " (" attr(title) ")"; }
+
+	figure { 
+		margin-bottom:1em; 
+		overflow:hidden;
+	}
+
+	figure img { border:1px solid #000; }
+}

@@ -1,6 +1,6 @@
-# globalmigration
+# Global Migration Data Sheet 2013
 
-Visualization of global migration flows
+Unique estimates of migration flows between the top 50 sending and receiving countries.
 
 ## Getting Started
 ```javascript
