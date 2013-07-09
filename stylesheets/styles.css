@@ -97,12 +97,12 @@ text {
 }
 #circle:hover path.fade {
   opacity: 0;
+  pointer-events: none;
 }
 text.fade {
   opacity: 0;
 }
-.group path,
-.group text {
+.group path {
   cursor: pointer;
 }
 .group.region text {
@@ -111,6 +111,9 @@ text.fade {
 }
 .chord {
   opacity: 0.75;
+}
+.chord:hover {
+  opacity: 1;
 }
 	
 /* ---------------------------------------------------------
