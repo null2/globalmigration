@@ -102,10 +102,10 @@ text {
 text.fade {
   opacity: 0;
 }
-.group path {
+.group-arc {
   cursor: pointer;
 }
-.group.region text {
+text.region {
   font-family: 'CartoGothicStdBold', Arial, sans-serif;
   font-size: 14px;
 }
