@@ -56,7 +56,20 @@ module.exports = function(grunt) {
 
         var o = obj(row);
 
-        return (codes.indexOf(o.origin_iso) === -1 || codes.indexOf(o.destination_iso) === -1) ? null : row;
+        if (options.sample) {
+          if (!o.origin_name.match(options.sample) || !o.destination_name.match(options.sample)) {
+            return null;
+          }
+        }
+
+        if (codes.indexOf(o.origin_iso) === -1) {
+          return null;
+        }
+        if (codes.indexOf(o.destination_iso) === -1) {
+          return null;
+        }
+
+        return row;
       })
       .on('end', function() {
         done(null);
@@ -69,8 +82,17 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('filter', 'Filter csv data', function() {
     var options = this.options({
-      countries: grunt.option('countries')
+      countries: grunt.option('countries'),
+      sample: grunt.option('sample')
     });
+
+    // when sample option is set, only use countries starting with `A`
+    if (options.sample === true) {
+      options.sample = 'A';
+    }
+    if (options.sample) {
+      options.sample = new RegExp('^' + options.sample);
+    }
 
     var done = this.async();
     var files = this.files;

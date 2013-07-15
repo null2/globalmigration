@@ -96,7 +96,7 @@ module.exports = function(grunt) {
         var keys = grunt.util._.union(sortedRegions, Object.keys(data.regions)).reduce(function(memo, region) {
           memo.indices.push(memo.keys.length);
           memo.keys.push(region);
-          memo.keys = memo.keys.concat(data.regions[region].sort());
+          memo.keys = memo.keys.concat(data.regions[region]);
           return memo;
         }, { indices: [], keys: [] });
 
@@ -104,7 +104,7 @@ module.exports = function(grunt) {
         years.forEach(function(year) {
           matrix[year] = keys.keys.map(function(source) {
             return keys.keys.map(function(destination) {
-              return data.migrations[source][destination][year];
+              return data.migrations[source] && data.migrations[source][destination] && data.migrations[source][destination][year];
             });
           });
         });
@@ -122,9 +122,7 @@ module.exports = function(grunt) {
   }
 
   grunt.registerMultiTask('compile', 'Compile csv data', function() {
-    var options = this.options({
-      sample: grunt.option('sample')
-    });
+    var options = this.options();
 
     var done = this.async();
 
