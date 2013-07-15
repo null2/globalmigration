@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = function(grunt) {
-  // Project configuration.
   grunt.initConfig({
     jshint: {
       options: {
@@ -17,22 +16,28 @@ module.exports = function(grunt) {
     nodeunit: {
       files: ['test/**/*_test.js']
     },
-    compile: {
-      simple: {
+    filter: {
+      main: {
+        options: {
+          countries: 'data/countries.csv'
+        },
         src: 'data/Flow Data for Online Viz.csv',
+        dest: 'tmp/data.csv'
+      }
+    },
+    compile: {
+      main: {
+        src: 'tmp/data.csv',
         dest: 'json/migrations.json'
       }
     },
-    clean: 'json'
+    clean: ['tmp', 'json']
   });
 
-  // These plugins provide necessary tasks.
+  grunt.loadTasks('tasks');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-  grunt.loadTasks('tasks');
-
-  // Default task.
-  grunt.registerTask('default', ['jshint', 'nodeunit', 'compile']);
+  grunt.registerTask('default', ['jshint', 'nodeunit', 'filter', 'compile']);
 };
