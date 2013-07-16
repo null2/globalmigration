@@ -53,13 +53,6 @@ h1, h2 {
   font-weight: bold;
 }
 
-#info {
-  min-height: 3ex;
-  margin: 1ex 0;
-}
-#info p {
-  margin: 0;
-}
 footer {
   margin: 3ex 0 6ex 0;
 }
@@ -72,6 +65,13 @@ svg {
   max-width: 100%;
   vector-effect: non-scaling-stroke;
 }
+.info {
+  pointer-events: none;
+}
+.info text {
+  fill: white;
+}
+
 #circle circle {
   fill: none;
   pointer-events: all;
