@@ -28,7 +28,7 @@
     font-family: "CartoGothic";
     font-style: normal;
     font-weight: bold;
-    src: url("fonts/CartoGothicStdBold-Book-webfont.eot") format("embedded-opentype"), url("fonts/CartoGothicStdBold-Book-webfont.woff") format("woff"), url("fonts/CartoGothicStdBold-Book-webfont.ttf") format("truetype"), url("fonts/CartoGothicStdBold-Book-webfont.svg") format("svg");
+    src: url("fonts/CartoGothicStd-Bold-webfont.eot") format("embedded-opentype"), url("fonts/CartoGothicStd-Bold-webfont.woff") format("woff"), url("fonts/CartoGothicStd-Bold-webfont.ttf") format("truetype"), url("fonts/CartoGothicStd-Bold-webfont.svg") format("svg");
 }
 
 body {
@@ -96,7 +96,8 @@ text {
   -o-transition: opacity 0.4s;
   transition: opacity 0.4s;
 }
-#circle:hover path.fade {
+#circle:hover path.fade,
+#circle path.unselected {
   opacity: 0;
   pointer-events: none;
 }
