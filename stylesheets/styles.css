@@ -19,25 +19,26 @@
    Author's styles
    ---------------------------------------------------------*/
 @font-face {
-    font-family: "CartoGothicStdBook";
+    font-family: "CartoGothic";
     font-style: normal;
     font-weight: normal;
     src: url("fonts/CartoGothicStd-Book-webfont.eot") format("embedded-opentype"), url("fonts/CartoGothicStd-Book-webfont.woff") format("woff"), url("fonts/CartoGothicStd-Book-webfont.ttf") format("truetype"), url("fonts/CartoGothicStd-Book-webfont.svg") format("svg");
 }
 @font-face {
-    font-family: "CartoGothicStdBoldBook";
+    font-family: "CartoGothic";
     font-style: normal;
-    font-weight: normal;
+    font-weight: bold;
     src: url("fonts/CartoGothicStdBold-Book-webfont.eot") format("embedded-opentype"), url("fonts/CartoGothicStdBold-Book-webfont.woff") format("woff"), url("fonts/CartoGothicStdBold-Book-webfont.ttf") format("truetype"), url("fonts/CartoGothicStdBold-Book-webfont.svg") format("svg");
 }
 
 body {
   text-align: center;
-  font: 18px/27px 'CartoGothicStdBook', Arial, sans-serif;
+  font: 18px/27px 'CartoGothic', Arial, sans-serif;
   width: 100%;
 }
 h1, h2 {
-  font-family: 'CartoGothicStdBold', Arial, sans-serif;
+  font-family: 'CartoGothic', Arial, sans-serif;
+  font-weight: bold;
   line-height: 2ex;
 }
 .year label {
@@ -49,7 +50,7 @@ h1, h2 {
   display: none;
 }
 .year input[checked] + label {
-  font-family: 'CartoGothicStdBold', Arial, sans-serif;
+  font-family: 'CartoGothic', Arial, sans-serif;
   font-weight: bold;
 }
 
@@ -106,8 +107,8 @@ text.fade {
   cursor: pointer;
 }
 text.region {
-  font-family: 'CartoGothicStdBold', Arial, sans-serif;
-  font-size: 14px;
+  font-family: 'CartoGothic', Arial, sans-serif;
+  font-size: 16px;
 }
 .chord {
   opacity: 0.75;
