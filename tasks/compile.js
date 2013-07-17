@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     var headers = [];
     
     // sort order
-    var sortedRegions = ['North America', 'Africa', 'Europe', 'Frm Soviet Union', 'West Asia', 'South Asia', 'East Asia', 'South-East Asia', 'Pacific', 'Latin America'];
+    var sortedRegions = ['North America', 'Africa', 'Europe', 'Frm Soviet Union', 'West Asia', 'South Asia', 'East Asia', 'South-East Asia', 'Oceania', 'Latin America'];
 
     // create object from headers out of row
     // TODO: get years from CSV
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
         var keys = grunt.util._.union(sortedRegions, Object.keys(data.regions)).reduce(function(memo, region) {
           memo.indices.push(memo.keys.length);
           memo.keys.push(region);
-          memo.keys = memo.keys.concat(data.regions[region]);
+          memo.keys = memo.keys.concat(data.regions[region] && data.regions[region].sort());
           return memo;
         }, { indices: [], keys: [] });
 
