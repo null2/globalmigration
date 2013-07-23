@@ -8,11 +8,12 @@
    
 	}
 	/* Default link styling */
-	a:link { color:#0271fb; }
+/*	
+  a:link { color:#0271fb; }
 	a:visited { color:#bd02fb; }
 	a:hover, a:focus { color:#000; }
 	a:active { color:#fb0e02; }
-	
+*/	
 	
 	
 /* ---------------------------------------------------------
@@ -32,15 +33,74 @@
 }
 
 body {
-  text-align: center;
-  font: 18px/27px 'CartoGothic', Arial, sans-serif;
+  font: 15px/1.8em 'CartoGothic', Arial, sans-serif;
   width: 100%;
+  margin: 0;
+  background-color: #6D6B6B;
+  color: #000000;
+  line-height: 1.7em
 }
-h1, h2 {
+
+a, a:visited, a:hover, a:focus, a:link {
+  color: #6A93BF;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  margin: 0 auto;
+  width: 960px;
+  background-color: #FFFEFF;
+  -moz-box-shadow: 0 0 15px #000;
+  -webkit-box-shadow: 0 0 15px #000;
+  box-shadow: 0 0 15px #000;
+
+  background-image: -webkit-linear-gradient(top, #F7F6F6 0px, #F7F6F6 300px, #FFFEFF 450px, #FFFEFF 1100px, #F7F6F6 1250px, #F7F6F6 100%);
+  background-image:    -moz-linear-gradient(top, #F7F6F6 0px, #F7F6F6 300px, #FFFEFF 450px, #FFFEFF 1100px, #F7F6F6 1250px, #F7F6F6 100%);
+  background-image:     -ms-linear-gradient(top, #F7F6F6 0px, #F7F6F6 300px, #FFFEFF 450px, #FFFEFF 1100px, #F7F6F6 1250px, #F7F6F6 100%);
+  background-image:      -o-linear-gradient(top, #F7F6F6 0px, #F7F6F6 300px, #FFFEFF 450px, #FFFEFF 1100px, #F7F6F6 1250px, #F7F6F6 100%);
+
+  background-image:   linear-gradient(to bottom, #F7F6F6 0px, #F7F6F6 300px, #FFFEFF 450px, #FFFEFF 1100px, #F7F6F6 1250px, #F7F6F6 100%);
+}
+
+header {
+  margin: 0;
+  padding: 50px 30px;
+}
+
+h1 {
   font-family: 'CartoGothic', Arial, sans-serif;
   font-weight: bold;
-  line-height: 2ex;
+  font-size: 40px;
+  text-transform: uppercase;
+  margin: 0 0 35px 0;
 }
+
+.lead-in {
+  font-size: 22px;
+  line-height: 1.3em;
+  font-weight: normal;
+  color: #6D6B6B;
+  width: 75%;
+  margin: 0 0 30px 0;
+}
+
+.credits {
+  font-size: 13px;
+  line-height: 1.6em;
+  color: #6D6B6B;
+  margin: 0 0 40px 0;
+}
+
+hr {
+  background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAIAAAAW4yFwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABNJREFUeNpiuHDhAsP///8BAgwAFKIFbjWCxU8AAAAASUVORK5CYII=) repeat-x top left;
+  height:2px;
+  border:none !important;
+}
+
 .year label {
   padding: 0 1em;
   cursor: pointer;

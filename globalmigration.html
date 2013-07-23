@@ -5,9 +5,14 @@
 	<title>Global Migration Data Sheet 2013</title>
 	<meta name=description content="Global Migration Data Sheet 2013: Unique estimates of migration flows between the top 50 sending and receiving countries.">
 	<meta name=viewport content="width=device-width, initial-scale=1.0">
+
 	<link href=stylesheets/normalize.css rel=stylesheet media=all>
-	<link href=stylesheets/styles.css rel=stylesheet media=all>	
+	<link href=stylesheets/styles.css rel=stylesheet media=all>
+
 	<!--[if lt IE 9]><script src=javascripts/html5shiv-printshiv.js></script><![endif]-->
+
+  <script src="javascripts/modernizr.js"></script>
+
   <script src=javascripts/d3.v3.min.js></script>
   <script src="lib/countrymerge.js"></script>
   <script src="lib/layout.js"></script>
@@ -16,23 +21,33 @@
   <script src="lib/chart.js"></script>
 </head>
 <body>
-	<header role=banner>
-		<h1>Global Migration Data Sheet 2013</h1>
-		<nav role=navigation>
-      <div id=timeline></div>
-		</nav>
-	</header>
-	
-	<div class=wrap>
-		<main role=main>
-      <div id=diagram></div>
-		</main>
-	</div>
-	
-	<footer role=contentinfo>
-    <small>Copyright &copy; <time datetime="2013">2013</time> Team at the Wittgenstein Centre for Demography and Global Human Capital (IIASA,VID/ÖAW,WU): Nikola Sander, Guy J. Abel and Ramon Bauer. Contact: Nikola Sander, Vienna Institute of Demography (VID/ÖAW), <a href=mailto:nikola.sander@oeaw.ac.at>nikola.sander@oeaw.ac.at</a></small>
-	</footer>
-	
+  <div class="container">
+  	<header role="banner">
+  		<h1>The global flow of people</h1>
+      <div class="lead-in">
+        Explore new estimates of migration flows between and within regions for five-year periods, 1990 to 2010. Click on a region to discover flows country-by-country.
+      </div>
+      <div class="credits">
+        by <a href="#">Nikola Sander</a>, <a href="#">Guy J. Abel</a> &amp; <a href="#">Ramon Bauer</a> <br>
+        at the <a href="#">Wittgenstein Centre for Demography and Global Human Capital</a>        
+      </div>
+      <hr>
+
+  		<nav role=navigation>
+        <div id="timeline"></div>
+  		</nav>
+  	</header>
+  	
+  	<div class="wrap">
+  		<main role="main">
+        <div id="diagram"></div>
+  		</main>
+  	</div>
+  	
+  	<footer role="contentinfo">
+      <small>Copyright &copy; <time datetime="2013">2013</time> Team at the Wittgenstein Centre for Demography and Global Human Capital (IIASA,VID/ÖAW,WU): Nikola Sander, Guy J. Abel and Ramon Bauer. Contact: Nikola Sander, Vienna Institute of Demography (VID/ÖAW), <a href=mailto:nikola.sander@oeaw.ac.at>nikola.sander@oeaw.ac.at</a></small>
+  	</footer>
+  </div>
   <script>
     (function() {
       var datafile = 'json/migrations.json';
@@ -62,7 +77,7 @@
     })();
   </script>
 	<script>
-		var _gaq=[['_setAccount','UA-XXXX-XX'],['_trackPageview']];(function(a,b){var c=a.createElement(b),d=a.getElementsByTagName(b)[0];c.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";d.parentNode.insertBefore(c,d)})(document,"script");
+		var _gaq=[['_setAccount','UA-42659946-1'],['_trackPageview']];(function(a,b){var c=a.createElement(b),d=a.getElementsByTagName(b)[0];c.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";d.parentNode.insertBefore(c,d)})(document,"script");
 	</script>
 </body>
 </html>
