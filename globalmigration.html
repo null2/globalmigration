@@ -44,9 +44,128 @@
   		</main>
   	</div>
   	
+
   	<footer role="contentinfo">
-      <small>Copyright &copy; <time datetime="2013">2013</time> Team at the Wittgenstein Centre for Demography and Global Human Capital (IIASA,VID/ÖAW,WU): Nikola Sander, Guy J. Abel and Ramon Bauer. Contact: Nikola Sander, Vienna Institute of Demography (VID/ÖAW), <a href=mailto:nikola.sander@oeaw.ac.at>nikola.sander@oeaw.ac.at</a></small>
+
+      <hr>
+
+      <div class="column-wrap-3">
+
+        <div class="column">
+          <h3>Further reading</h3>
+          <p>Abel (2013). <a href="http://www.demographic-research.org/volumes/vol28/18/28-18.pdf">Estimating global migration flow tables using place of birth data</a>. Demogr Res 28(18):505-546.</p>
+          <p>Abel &amp; Sander (2013). Quantifying global international migration flows.</p>
+        </div>
+
+        <div class="column">
+          <h3>Contact</h3>
+          <p>
+            For the visualization:<br>
+            <a href="http://www.oeaw.ac.at/vid/staff/staff_nikola_sander.shtml">nikola.sander@oeaw.ac.at</a>
+          </p>
+          <p>
+            For the estimates:<br>
+            <a href="http://www.oeaw.ac.at/vid/staff/staff_guy_abel.shtml">guy.abel@oeaw.ac.at</a>
+          </p>
+        </div>
+
+        <div class="column">
+          <h3>Credits</h3>
+          <p>
+            Provided by<br>
+            <a href="http://www.oeaw.ac.at/wic/"><img src="images/wittgenstein.png"></a>
+            <a href="http://www.oeaw.ac.at/vid/"><img src="images/vid.png"></a>
+          </p>
+          <p>Coded by <a href="http://null2.net"><img src="images/null2.png"></a></p>
+          <p>Screendesign by <a href="http://elvirastein.com/">Elvira Stein</a></p>
+          <p>Inspired by the excellent <a href="http://circos.ca/">Circos Tool</a> by Martin Krzywinski and Mike Bostock’s <a href="http://d3js.org/">D3.js library</a>.</p>
+        </div>
+
+        <div class="clear"></div>
+
+      </div>
+
+      <hr>
+
+      <div class="license">
+        Version <span class="version">1.0.18 (September 2013)</span>. 
+        This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial 3.0 Unported License.</a>
+        <a href="http://creativecommons.org/licenses/by-nc/3.0/"><img src="images/by-nc.png"></a>
+      </div>
+
+      <div class="column-wrap-2">        
+        <div class="column">
+          <div class="column-item">
+            <h2>About the Data</h2>
+            <p>
+              The bilateral flows between 196 countries are estimated from sequential stock tables. They are comparable across countries and capture the number of people who changed their country of residence over five-year periods. The estimates reflect migration transitions and thus cannot be compared to annual movements flow data published by United Nations and Eurostat.
+            </p>
+            <div class="center">
+              <a href="#" class="button">
+                Download the data
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="column-item">
+            <h2>About the plot</h2>
+            <p>
+              The circular plot shows the estimates of directional flows between 123 countries that recorded a migration volume (immigration + emigration) of more than 100,000 people in at least two of the four time periods. Only flows containing at least 50,000 migrants are shown. The window that pops up when hovering over the plot indicates the absolute number of migrants.
+            </p>
+            <div class="center">
+              <a href="http://github.com/null2/globalmigration" class="button">
+                Source Code on Github
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <hr>
+
+        <div class="column">
+          <div class="column-item">
+            <h2>Estimating global bilateral migration flows</h2>
+            <p>
+              As migration flow data are often incomplete and not comparable across nations, we estimate the number of movements by linking changes in migrant stock data over time. Using statistical missing data methods, we estimate the five-year migrant flows that are required to meet differences in migrant stock totals. For example, if the number of foreign-born in the United States increases between two time periods, we estimate the minimum migrant flows between the US and all other countries in the world that are required to meet this increase.
+            </p>
+            <p>
+              For each country of birth, we estimate the minimum number of migrant flows required to match differences in stocks by assuming that people are more likely to stay than to move. This estimation procedure is replicated simultaneously for all 196 countries to estimate birthplace specific flow tables, resulting in a comparable set of global migration flows. Alterations are made to the migrant stock counts to control for births and deaths during the period. This allows our country-specific net migration flows to closely match the net migration estimates published by the United Nations. 
+            </p>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="column-item">
+            <h2>Global Migration Data Sheet 2005–2010</h2>
+            <p>
+              This Data Sheet provides a comprehensive portrait of the global flow of people in 2005–10. It features the flows between the top 50 sending and receiving countries, each country’s total immigration and emigration flow and the world’s 20 largest country-to-country flows. <a href="#">Email us to request a hard copy</a>.
+            </p>
+            <div class="center">
+              <a href="#" class="button">
+                Download Data Sheet
+              </a>
+            </div>
+            <br>
+            <div class="center">
+              <a href="#">
+                <img src="images/poster.png">
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="clear"></div>
+
+      </div>
+
+      <br><br>
+
   	</footer>
+
   </div>
   <script>
     (function() {
