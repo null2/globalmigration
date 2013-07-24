@@ -58,6 +58,7 @@ a:hover {
   -moz-box-shadow: 0 0 15px #000;
   -webkit-box-shadow: 0 0 15px #000;
   box-shadow: 0 0 15px #000;
+  overflow: hidden;
 
   background-image: -webkit-linear-gradient(top, #F7F6F6 0px, #F7F6F6 300px, #FFFEFF 450px, #FFFEFF 1100px, #F7F6F6 1250px, #F7F6F6 100%);
   background-image:    -moz-linear-gradient(top, #F7F6F6 0px, #F7F6F6 300px, #FFFEFF 450px, #FFFEFF 1100px, #F7F6F6 1250px, #F7F6F6 100%);
@@ -205,6 +206,10 @@ hr {
   text-align: center;
 }
 
+.left {
+  float: left;
+}
+
 a.button {
   display: inline-block;
   text-align: center;
@@ -269,6 +274,69 @@ a.button:hover {
 
 .license a:hover img {
   opacity: 1.0;
+}
+
+.help {
+  position: fixed;
+  top: 60px;
+  right: -553px;
+  width: 583px;
+  -moz-transition:    -moz-transform    0.3s;
+  -webkit-transition: -webkit-transform 0.3s;
+  -o-transition:      -o-transform      0.3s;
+  transition:         transform         0.3s;
+}
+
+.help.active {
+  -moz-transform:    translateX(-540px);
+  -webkit-transform: translateX(-540px);
+  -o-transform:      translateX(-540px);
+  transform:         translateX(-540px);
+}
+
+.help .tab {
+  float: left;
+  background-image: url("../images/helptab.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  width: 30px;
+  height: 197px;
+  margin-top: 80px;
+  text-indent: -9000px;
+}
+
+.help .help-content {
+  float: left;
+  background-color: white;
+  width: 480px;
+  border: 1px solid #E3E2E2;
+  padding: 30px;
+  -moz-box-shadow:    0 0 15px #bbb;
+  -webkit-box-shadow: 0 0 15px #bbb;
+  box-shadow:         0 0 15px #bbb;
+
+}
+
+.help h3 {
+  margin: 0 0 5px 0;
+  font-size: 15px;
+  font-weight: bold;
+  background-image: url("../images/i.png");
+  background-repeat: no-repeat;
+  background-position: left top;
+  text-indent: 40px;
+  height: 30px;
+}
+
+.help p {
+  font-size: 13px;
+  line-height: 1.6em;
+  color: #6D6B6B;
+}
+
+.help img {
+  padding: 0 20px 20px 0;
 }
 
 /* ---------------------------------------------------------

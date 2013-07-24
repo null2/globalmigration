@@ -22,6 +22,8 @@
 </head>
 <body>
   <div class="container">
+
+
   	<header role="banner">
   		<h1>The global flow of people</h1>
       <div class="lead-in">
@@ -165,10 +167,34 @@
       <br><br>
 
   	</footer>
-
   </div>
+
+  <div class="help">
+    <div class="tab">How to read the plot</div>
+    <div class="help-content">
+      <h3>How to read the plot</h3>
+      <img src="images/help.png" class="left">
+      <p>
+        Origins and destinations are represented by the circle’s segments. 
+        Each region/country is assigned a colour. 
+        Flows have the same colour as their origin and the width indicates their size. 
+        The direction of the flow is also shown by the gap between flow and country/region: small gap indicates origin; large gap indicates destination. 
+        <b>Click on a segment to switch between country and region view.</b>
+      </p>
+      <div class="clear"></div>
+      <p>
+        Note: switch between time periods using Ctrl and number keys (1,2,3,4); 
+        reset the plot using Ctrl and r; zoom in/out with Ctrl and +/- 
+      </p>
+
+    </div>
+    <div class="clear"></div>
+  </div>
+
+
   <script>
     (function() {
+
       var datafile = 'json/migrations.json';
       var aLittleBit = Math.PI / 100000;
 
@@ -194,6 +220,14 @@
         chart.draw(now);
       });
     })();
+  </script>
+  <script src="javascripts/zepto.js"></script>
+  <script>
+    Zepto(function($){
+      $('.help').bind('click', function(ev) {
+        $(this).toggleClass("active");
+      });
+    })
   </script>
 	<script>
 		var _gaq=[['_setAccount','UA-42659946-1'],['_trackPageview']];(function(a,b){var c=a.createElement(b),d=a.getElementsByTagName(b)[0];c.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";d.parentNode.insertBefore(c,d)})(document,"script");
