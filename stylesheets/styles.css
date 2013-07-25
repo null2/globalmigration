@@ -5,7 +5,7 @@
    after all.
    ---------------------------------------------------------*/
 	body {
-   
+    -webkit-transform:translate3d(0,0,0);
 	}
 	/* Default link styling */
 /*	
@@ -312,10 +312,12 @@ a.button:hover {
   width: 480px;
   border: 1px solid #E3E2E2;
   padding: 30px;
+}
+
+.help.active .help-content {
   -moz-box-shadow:    0 0 15px #bbb;
   -webkit-box-shadow: 0 0 15px #bbb;
   box-shadow:         0 0 15px #bbb;
-
 }
 
 .help h3 {
