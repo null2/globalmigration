@@ -23,6 +23,14 @@
 <body>
   <div class="container">
 
+    <div class="social-wrap">
+      <div class="social">
+        <div class="fb-like" data-send="false" data-layout="button_count" data-width="250px" data-show-faces="false" data-font="lucida grande"></div>
+        <div id="plusone-div"></div>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="The Global Flow of People"></a>
+        <div class="clear"></div>
+      </div>
+    </div>
 
   	<header role="banner">
   		<h1>The global flow of people</h1>
@@ -222,15 +230,50 @@
         chart.draw(now);
       });
     })();
+
   </script>
+
+
+
+  <div id="fb-root"></div>
+
   <script src="javascripts/zepto.js"></script>
+  <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+    {"parsetags": "explicit"}
+  </script>
+
   <script>
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    !function(d,s,id){
+      var js,
+      fjs=d.getElementsByTagName(s)[0],
+      p=/^http:/.test(d.location)?'http':'https';
+      if(!d.getElementById(id)){
+        js=d.createElement(s);
+        js.id=id;
+        js.src=p+'://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js,fjs);
+      }
+    }(document, 'script', 'twitter-wjs');
     Zepto(function($){
+      // bind help tab click
       $('.help').bind('click', function(ev) {
         $(this).toggleClass("active");
       });
+
+     // render plusone button
+      gapi.plusone.render("plusone-div", {size: 'medium', annotation: 'bubble', width: '250px'});
     })
   </script>
+
 	<script>
 		var _gaq=[['_setAccount','UA-42659946-1'],['_trackPageview']];(function(a,b){var c=a.createElement(b),d=a.getElementsByTagName(b)[0];c.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";d.parentNode.insertBefore(c,d)})(document,"script");
 	</script>

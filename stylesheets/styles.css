@@ -5,7 +5,7 @@
    after all.
    ---------------------------------------------------------*/
 	body {
-    /* see: http://stackoverflow.com/questions/3461441/prevent-flicker-on-webkit-transition-of-webkit-transform */
+    /* anti-flicker, see: http://stackoverflow.com/questions/3461441/prevent-flicker-on-webkit-transition-of-webkit-transform */
     -webkit-transform:translate3d(0,0,0);
 	}
 	/* Default link styling */
@@ -40,6 +40,26 @@ body {
   background-color: #6D6B6B;
   color: #000000;
   line-height: 1.7em
+}
+
+.social-wrap {
+  position: relative;
+  margin: 0 0 auto auto;
+}
+
+.social {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 40px;
+  background-color: none;
+  text-align: right;
+  padding: 20px;
+}
+
+.social div {
+  display: inline-block;
 }
 
 a, a:visited, a:hover, a:focus, a:link {
