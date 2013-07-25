@@ -5,6 +5,7 @@
    after all.
    ---------------------------------------------------------*/
 	body {
+    /* see: http://stackoverflow.com/questions/3461441/prevent-flicker-on-webkit-transition-of-webkit-transform */
     -webkit-transform:translate3d(0,0,0);
 	}
 	/* Default link styling */
