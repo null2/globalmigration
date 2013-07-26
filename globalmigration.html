@@ -179,7 +179,7 @@
   	</footer>
   </div>
 
-  <div class="help">
+  <div class="help" id="help">
     <div class="tab">How to read the plot</div>
     <div class="help-content">
       <h3>How to read the plot</h3>
@@ -237,7 +237,7 @@
 
   <div id="fb-root"></div>
 
-  <script src="javascripts/zepto.js"></script>
+  
   <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
     {"parsetags": "explicit"}
   </script>
@@ -263,15 +263,24 @@
         fjs.parentNode.insertBefore(js,fjs);
       }
     }(document, 'script', 'twitter-wjs');
-    Zepto(function($){
-      // bind help tab click
-      $('.help').bind('click', function(ev) {
-        $(this).toggleClass("active");
-      });
 
-     // render plusone button
+    (function() {
+      var h = document.getElementById("help");
+      h.addEventListener("click", function() {
+        var c = h.getAttribute("class");
+        if (c.match(/active/)) {
+          c = c.replace(/\s?active\s?/, '');
+        } else {
+          c = c + " active";
+        }
+        h.setAttribute("class", c);
+      })
+    })();
+
+    (function() {
+      // render plusone button
       gapi.plusone.render("plusone-div", {size: 'medium', annotation: 'bubble', width: '250px'});
-    })
+    })();
   </script>
 
 	<script>
