@@ -83,6 +83,7 @@ a:hover {
   -moz-box-shadow: 0 0 15px #000;
   -webkit-box-shadow: 0 0 15px #000;
   box-shadow: 0 0 15px #000;
+
   overflow: hidden;
 
   background-image: -webkit-linear-gradient(top, #F7F6F6 0px, #F7F6F6 300px, #FFFEFF 450px, #FFFEFF 1100px, #F7F6F6 1250px, #F7F6F6 100%);
@@ -307,28 +308,32 @@ a.button:hover {
 .help {
   position: fixed;
   top: 60px;
-  right: -553px;
-  width: 583px;
+  right: 0;
+  width: 30px;
+  overflow-x: hidden;
+  padding: 15px 0;
+  text-align: middle;
 }
 
 .help .tab {
-  float: left;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
   background-image: url("../images/helptab.png");
-  background-position: top;
+  background-position: center left;
   background-repeat: no-repeat;
   cursor: pointer;
   width: 30px;
-  height: 197px;
-  margin-top: 80px;
   text-indent: -9000px;
 }
 
 .help .help-content {
-  float: left;
   background-color: white;
   width: 480px;
   border: 1px solid #E3E2E2;
   padding: 30px;
+  margin-left: 30px;
 }
 
 .help.active .help-content {

@@ -21,7 +21,7 @@
   <script src="lib/chart.js"></script>
 </head>
 <body>
-  <div class="container">
+  <div id=container class="container">
 
     <div class="social-wrap">
       <div class="social">
@@ -177,30 +177,31 @@
       <br><br>
 
   	</footer>
-  </div>
 
-  <div class="help" id="help">
-    <div class="tab">How to read the plot</div>
-    <div class="help-content">
-      <h3>How to read the plot</h3>
-      <img src="images/help.png" class="left">
-      <p>
-        Origins and destinations are represented by the circle’s segments. 
-        Each region/country is assigned a colour. 
-        Flows have the same colour as their origin and the width indicates their size. 
-        The direction of the flow is also shown by the gap between flow and country/region: small gap indicates origin; large gap indicates destination. 
-        <b>Click on a segment to switch between country and region view.</b>
-      </p>
-      <div class="clear"></div>
-      <p>
-        Switch between time periods using Ctrl and number keys (1,2,3,4); 
-        reset the plot using Ctrl and r; zoom in/out with Ctrl and +/- 
-      </p>
+    <div id=help-wrapper class=help-wrapper>
+      <div class="help" id="help">
+        <div class="tab">How to read the plot</div>
+        <div class="help-content">
+          <h3>How to read the plot</h3>
+          <img src="images/help.png" class="left">
+          <p>
+            Origins and destinations are represented by the circle’s segments. 
+            Each region/country is assigned a colour. 
+            Flows have the same colour as their origin and the width indicates their size. 
+            The direction of the flow is also shown by the gap between flow and country/region: small gap indicates origin; large gap indicates destination. 
+            <b>Click on a segment to switch between country and region view.</b>
+          </p>
+          <div class="clear"></div>
+          <p>
+            Switch between time periods using Ctrl and number keys (1,2,3,4); 
+            reset the plot using Ctrl and r; zoom in/out with Ctrl and +/- 
+          </p>
 
+        </div>
+        <div class="clear"></div>
+      </div>
     </div>
-    <div class="clear"></div>
   </div>
-
 
   <script>
     (function() {
@@ -273,8 +274,16 @@
         help
           .classed('active', !isActive)
           .transition()
-          .style('right', isActive ? '-553px' : '-13px');
+          .style('width', isActive ? '30px' : '572px');
       });
+
+      function helpOffset() {
+        var offset = Math.max((document.body.clientWidth - document.getElementById('container').clientWidth) / 2, 0);
+
+        help.style('right', offset + 'px');
+      }
+      d3.select(window).on('resize.help-resize', helpOffset);
+      helpOffset();
     })();
 
     (function() {
