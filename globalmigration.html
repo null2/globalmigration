@@ -265,16 +265,16 @@
     }(document, 'script', 'twitter-wjs');
 
     (function() {
-      var h = document.getElementById("help");
-      h.addEventListener("click", function() {
-        var c = h.getAttribute("class");
-        if (c.match(/active/)) {
-          c = c.replace(/\s?active\s?/, '');
-        } else {
-          c = c + " active";
-        }
-        h.setAttribute("class", c);
-      })
+      var help = d3.select('#help');
+
+      help.on('click', function() {
+        var isActive = help.classed('active');
+
+        help
+          .classed('active', !isActive)
+          .transition()
+          .style('right', isActive ? '-553px' : '-13px');
+      });
     })();
 
     (function() {
