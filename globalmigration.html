@@ -19,6 +19,9 @@
   <script src="lib/chord.js"></script>
   <script src="lib/timeline.js"></script>
   <script src="lib/chart.js"></script>
+  
+  <script>
+  </script>
 </head>
 <body>
   <div id=container class="container">
@@ -204,6 +207,31 @@
   </div>
 
   <script>
+    // help
+    (function() {
+      var help = d3.select('#help');
+
+      help.on('click', function() {
+        var isActive = help.classed('active');
+
+        help
+          .classed('active', !isActive)
+          .transition()
+          .style('width', isActive ? '30px' : '572px');
+      });
+
+      function helpOffset() {
+        var offset = Math.max((document.body.clientWidth - document.getElementById('container').clientWidth) / 2, 0);
+
+        help.style('right', offset + 'px');
+      }
+      d3.select(window).on('resize.help-resize', helpOffset);
+      helpOffset();
+    })();
+  </script>
+
+
+  <script>
     (function() {
 
       var datafile = 'json/migrations.json';
@@ -234,61 +262,29 @@
 
   </script>
 
-
-
   <div id="fb-root"></div>
 
-  
   <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
     {"parsetags": "explicit"}
   </script>
 
   <script>
-
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    !function(d,s,id){
-      var js,
-      fjs=d.getElementsByTagName(s)[0],
-      p=/^http:/.test(d.location)?'http':'https';
-      if(!d.getElementById(id)){
-        js=d.createElement(s);
-        js.id=id;
-        js.src=p+'://platform.twitter.com/widgets.js';
-        fjs.parentNode.insertBefore(js,fjs);
-      }
-    }(document, 'script', 'twitter-wjs');
-
     (function() {
-      var help = d3.select('#help');
-
-      help.on('click', function() {
-        var isActive = help.classed('active');
-
-        help
-          .classed('active', !isActive)
-          .transition()
-          .style('width', isActive ? '30px' : '572px');
-      });
-
-      function helpOffset() {
-        var offset = Math.max((document.body.clientWidth - document.getElementById('container').clientWidth) / 2, 0);
-
-        help.style('right', offset + 'px');
+      function loadScript(d,s,l,id){
+        var js,
+        fjs=d.getElementsByTagName(s)[0],
+        p=/^http:/.test(d.location)?'http':'https';
+        if(!id || !d.getElementById(id)){
+          js=d.createElement(s);
+          js.id=id;
+          js.src=p+'://' + l;
+          fjs.parentNode.insertBefore(js,fjs);
+        }
       }
-      d3.select(window).on('resize.help-resize', helpOffset);
-      helpOffset();
-    })();
 
-    (function() {
-      // render plusone button
+      loadScript(document, 'script', 'connect.facebook.net/en_US/all.js#xfbml=1', 'facebook-jssdk');
       gapi.plusone.render("plusone-div", {size: 'medium', annotation: 'bubble', width: '250px'});
+      loadScript(document, 'script', 'platform.twitter.com/widgets.js', 'twitter-wjs');
     })();
   </script>
 
