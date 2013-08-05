@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     var headers = [];
     
     // sort order
-    var sortedRegions = ['North America', 'Africa', 'Europe', 'Frm Soviet Union', 'West Asia', 'South Asia', 'East Asia', 'South-East Asia', 'Oceania', 'Latin America'];
+    var sortedRegions = ['North America', 'Africa', 'Europe', 'Fmr Soviet Union', 'West Asia', 'South Asia', 'East Asia', 'South-East Asia', 'Oceania', 'Latin America'];
 
     // create object from headers out of row
     // TODO: get years from CSV
