@@ -93,6 +93,9 @@ header, footer {
   margin: 0;
   padding: 50px 30px 0 30px;
 }
+footer {
+  padding-top: 20px;
+}
 
 h1 {
   font-family: 'CartoGothic', Arial, sans-serif;
