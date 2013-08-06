@@ -93,10 +93,12 @@ a:hover {
 
 header, footer {
   margin: 0;
+}
+header {
   padding: 50px 30px 0 30px;
 }
 footer {
-  padding-top: 20px;
+  padding: 0 30px 0 30px;
 }
 
 h1 {
