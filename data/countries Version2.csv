@@ -1,0 +1,197 @@
+iso,name,show (1 = yes; 0 = no)
+ABW,Aruba,0
+AFG,Afghanistan,1
+AGO,Angola,1
+ALB,Albania,1
+ARE,United Arab Emirates,1
+ARG,Argentina,1
+ARM,Armenia,1
+AUS,Australia,1
+AUT,Austria,1
+AZE,Azerbaijan,1
+BDI,Burundi,1
+BEL,Belgium,1
+BEN,Benin,0
+BFA,Burkina Faso,1
+BGD,Bangladesh,1
+BGR,Bulgaria,1
+BHR,Bahrain,0
+BHS,Bahamas,0
+BIH,Bosnia & Herzegovina,1
+BLR,Belarus,1
+BLZ,Belize,0
+BOL,Bolivia,1
+BRA,Brazil,1
+BRB,Barbados,0
+BRN,Brunei,1
+BTN,Bhutan,0
+BWA,Botswana,0
+CAF,Central African Republic,0
+CAN,Canada,1
+CHE,Switzerland,1
+CHI,Channel Islands,0
+CHL,Chile,1
+CHN,China,1
+CIV,Ivory Coast,1
+CMR,Cameroon,1
+COD,DR Congo,1
+COG,Congo,0
+COL,Colombia,1
+COM,Comoros,0
+CPV,Cape Verde,0
+CRI,Costa Rica,1
+CUB,Cuba,1
+CYP,Cyprus,0
+CZE,Czech Republic,1
+DEU,Germany,1
+DJI,Djibouti,0
+DNK,Denmark,1
+DOM,Dominican Republic,1
+DZA,Algeria,1
+ECU,Ecuador,1
+EGY,Egypt,1
+ERI,Eritrea,1
+ESH,Western Sahara,0
+ESP,Spain,1
+EST,Estonia,0
+ETH,Ethiopia,1
+FIN,Finland,0
+FJI,Fiji,0
+FRA,France,1
+FSM,Micronesia,0
+GAB,Gabon,0
+GBR,United Kingdom,1
+GEO,Georgia,1
+GHA,Ghana,1
+GIN,Guinea,1
+GLP,Guadeloupe,0
+GMB,Gambia,0
+GNB,Guinea-Bissau,0
+GNQ,Equatorial Guinea,0
+GRC,Greece,1
+GRD,Grenada,0
+GTM,Guatemala,1
+GUF,French Guiana,0
+GUM,Guam,0
+GUY,Guyana,0
+HKG,Hong Kong,1
+HND,Honduras,1
+HRV,Croatia,1
+HTI,Haiti,1
+HUN,Hungary,1
+IDN,Indonesia,1
+IND,India,1
+IRL,Ireland,1
+IRN,Iran,1
+IRQ,Iraq,1
+ISL,Iceland,0
+ISR,Israel,1
+ITA,Italy,1
+JAM,Jamaica,1
+JOR,Jordan,1
+JPN,Japan,1
+KAZ,Kazakhstan,1
+KEN,Kenya,1
+KGZ,Kyrgyzstan,1
+KHM,Cambodia,1
+KOR,South Korea,1
+KWT,Kuwait,1
+LAO,Laos,0
+LBN,Lebanon,1
+LBR,Liberia,1
+LBY,Libya,1
+LCA,Saint Lucia,0
+LKA,Sri Lanka,1
+LSO,Lesotho,0
+LTU,Lithuania,1
+LUX,Luxembourg,0
+LVA,Latvia,1
+MAC,Macao,0
+MAR,Morocco,1
+MDA,Moldova,1
+MDG,Madagascar,0
+MDV,Maldives,0
+MEX,Mexico,1
+MKD,Macedonia,0
+MLI,Mali,1
+MLT,Malta,0
+MMR,Myanmar,1
+MNE,Montenegro,0
+MNG,Mongolia,0
+MOZ,Mozambique,1
+MRT,Mauritania,0
+MTQ,Martinique,0
+MUS,Mauritius,0
+MWI,Malawi,1
+MYS,Malaysia,1
+MYT,Mayotte,0
+NAM,Namibia,0
+NCL,New Caledonia,0
+NER,Niger,0
+NGA,Nigeria,1
+NIC,Nicaragua,1
+NLD,Netherlands,1
+NOR,Norway,1
+NPL,Nepal,1
+NZL,New Zealand,1
+OMN,Oman,1
+PAK,Pakistan,1
+PAN,Panama,0
+PER,Peru,1
+PHL,Philippines,1
+PNG,Papua New Guinea,0
+POL,Poland,1
+PRI,Puerto Rico,1
+PRK,North Korea,0
+PRT,Portugal,1
+PRY,Paraguay,1
+PSE,Palestine,1
+PYF,French Polynesia,0
+QAT,Qatar,1
+REU,Reunion,0
+ROU,Romania,1
+RUS,Russia,1
+RWA,Rwanda,1
+SAU,Saudi Arabia,1
+SDN,Sudan,1
+SEN,Senegal,1
+SGP,Singapore,1
+SLB,Solomon Islands,0
+SLE,Sierra Leone,1
+SLV,El Salvador,1
+SOM,Somalia,1
+SRB,Serbia,1
+SSD,South Sudan,1
+STP,Sao Tome & Principe,0
+SUR,Suriname,0
+SVK,Slovakia,0
+SVN,Slovenia,0
+SWE,Sweden,1
+SWZ,Swaziland,0
+SYR,Syria,1
+TCD,Chad,1
+TGO,Togo,1
+THA,Thailand,1
+TJK,Tajikistan,1
+TKM,Turkmenistan,0
+TLS,Timor-Leste,0
+TON,Tonga,0
+TTO,Trinidad & Tobago,0
+TUN,Tunisia,0
+TUR,Turkey,1
+TZA,Tanzania,1
+UGA,Uganda,1
+UKR,Ukraine,1
+URY,Uruguay,0
+USA,United States,1
+UZB,Uzbekistan,1
+VCT,Saint Vincent & Grenadines,0
+VEN,Venezuela,1
+VIR,Virgin Islands,0
+VNM,Vietnam,1
+VUT,Vanuatu,0
+WSM,Samoa,0
+YEM,Yemen,1
+ZAF,South Africa,1
+ZMB,Zambia,1
+ZWE,Zimbabwe,1

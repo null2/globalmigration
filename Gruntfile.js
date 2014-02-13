@@ -19,9 +19,9 @@ module.exports = function(grunt) {
     filter: {
       main: {
         options: {
-          countries: 'data/countries.csv'
+          countries: 'data/countries Version2.csv'
         },
-        src: 'data/Flow Data for Online Viz.csv',
+        src: 'data/Flow Data for Online Viz Version2.csv',
         dest: 'tmp/data.csv'
       }
     },

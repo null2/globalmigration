@@ -22,7 +22,7 @@ module.exports = function(grunt) {
           return;
         }
 
-        if (row[1] === '1') {
+        if (row[2] === '1') {
           codes.push(row[0]);
         }
       })
