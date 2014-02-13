@@ -134,6 +134,13 @@ hr {
 #timeline {
   margin: 15px auto;
   text-align: center;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+}
+main {
+  position: relative;
 }
 
 .year label {
