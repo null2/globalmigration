@@ -109,6 +109,11 @@ h1 {
   margin: 0 0 35px 0;
 }
 
+.badge {
+  float: right;
+  margin: -14px 20px 20px 20px;
+}
+
 .lead-in {
   font-size: 22px;
   line-height: 1.3em;
@@ -313,7 +318,7 @@ a.button:hover {
 
 .help {
   position: fixed;
-  top: 60px;
+  top: 125px;
   right: 0;
   width: 30px;
   overflow-x: hidden;
