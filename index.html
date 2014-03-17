@@ -6,22 +6,10 @@
 	<meta name=description content="Global Migration Data Sheet 2013: Unique estimates of migration flows between the top 50 sending and receiving countries.">
 	<meta name=viewport content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png" type="image/png">
-	<link href=stylesheets/normalize.css rel=stylesheet media=all>
-	<link href=stylesheets/styles.css rel=stylesheet media=all>
+	<link href="dist/app-v1.css" rel="stylesheet" media="all">
 
 	<!--[if lt IE 9]><script src=javascripts/html5shiv-printshiv.js></script><![endif]-->
-
-  <script src="javascripts/modernizr.js"></script>
-
-  <script src=javascripts/d3.v3.min.js></script>
-  <script src="lib/countrymerge.js"></script>
-  <script src="lib/layout.js"></script>
-  <script src="lib/chord.js"></script>
-  <script src="lib/timeline.js"></script>
-  <script src="lib/chart.js"></script>
-  
-  <script>
-  </script>
+  <script src="dist/app-v1.js"></script>
 </head>
 <body>
   <div id=container class="container">
@@ -119,7 +107,7 @@
               The bilateral flows between 196 countries are estimated from sequential stock tables. They are comparable across countries and capture the number of people who changed their country of residence over five-year periods. The estimates reflect migration transitions and thus cannot be compared to annual movements flow data published by United Nations and Eurostat.
             </p>
             <div class="center">
-              <a href="data/Flow%20Data%20for%20Online%20Viz.csv" class="button">
+              <a href="data/Flow%20Data%20for%20Online%20Viz%20Version2.csv" class="button">
                 Download the data
               </a>
             </div>
@@ -290,7 +278,9 @@
       }
 
       loadScript(document, 'script', 'connect.facebook.net/en_US/all.js#xfbml=1', 'facebook-jssdk');
-      gapi.plusone.render("plusone-div", {size: 'medium', annotation: 'bubble', width: '250px'});
+      if (typeof gapi === 'object') {
+        gapi.plusone.render("plusone-div", {size: 'medium', annotation: 'bubble', width: '250px'});
+      }
       loadScript(document, 'script', 'platform.twitter.com/widgets.js', 'twitter-wjs');
     })();
   </script>
