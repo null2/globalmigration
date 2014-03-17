@@ -62,6 +62,10 @@ img {
 .social div {
   display: inline-block;
 }
+.fb-like {
+  top: -9px;
+  margin-right: 35px;
+}
 
 a, a:visited, a:hover, a:focus, a:link {
   color: #6A93BF;
