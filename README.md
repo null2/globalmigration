@@ -1,8 +1,9 @@
 # Global Migration Data Sheet 2013
-
 Unique estimates of migration flows between the top 50 sending and receiving countries.
 
-## Getting Started
+http://www.global-migration.info/
+
+## Installation
 ```javascript
 npm install
 ```
@@ -30,4 +31,4 @@ Lint your code using [Grunt](http://gruntjs.com/).
 
 ## License
 Copyright (c) 2013 null2 GmbH Berlin  
-Licensed under the MIT license.
+This work is licensed under a [Creative Commons Attribution-NonCommercial 3.0 Unported License](http://creativecommons.org/licenses/by-nc/3.0/).
