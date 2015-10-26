@@ -56,12 +56,30 @@ module.exports = function(grunt) {
           'stylesheets/styles.css'
         ],
         dest: 'dist/app-v1.css'
-      }
+      },
+      lib: {
+        options: {
+          separator: ';'
+        },
+        src: [
+          'lib/countrymerge.js',
+          'lib/layout.js',
+          'lib/chord.js',
+          'lib/timeline.js',
+          'lib/chart.js'
+        ],
+        dest: 'dist/circular-flows.js'
+      },
     },
     uglify: {
       js: {
         files: {
         'dist/app-v1.min.js': ['dist/app-v1.js']
+        }
+      },
+      lib: {
+        files: {
+        'dist/circular-flows.min.js': ['dist/circular-flows.js']
         }
       }
     },
